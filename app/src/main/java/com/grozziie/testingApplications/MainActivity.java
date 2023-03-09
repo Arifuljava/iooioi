@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(),CPClActivity.class));
+                startActivity(new Intent(getApplicationContext(),AssenTaskDounwActivity.class));
             }
         },1000);
     }
