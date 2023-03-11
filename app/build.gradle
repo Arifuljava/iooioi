@@ -419,4 +419,6 @@ dependencies {
     // library to perform Network call to generate a meeting id
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'in.codeshuffle:typewriterview:1.1.0'
+    implementation 'com.itextpdf:itextg:5.5.10'
+    implementation 'com.github.kerolsafififawzy:Image-To-PdfConverter:1.0.3'
 }
