@@ -17,7 +17,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 public class AssenTaskDounwActivity extends AppCompatActivity {
 Uri imageuri;
-int flag=0; 
+int flag=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
