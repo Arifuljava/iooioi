@@ -421,4 +421,5 @@ dependencies {
     implementation 'in.codeshuffle:typewriterview:1.1.0'
     implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.github.kerolsafififawzy:Image-To-PdfConverter:1.0.3'
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
 }

@@ -9,12 +9,15 @@ import androidx.core.content.ContextCompat;
 import androidx.print.PrintHelper;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -28,8 +31,10 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -44,6 +49,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -81,16 +87,49 @@ public class AssenTaskDounwActivity extends AppCompatActivity {
     PdfPage pdfPage;
     Button printimageA;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assen_task_dounw);
+
+
         imageposit = findViewById(R.id.imageposit);
         printimageA=findViewById(R.id.printimageA);
         printimageA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                printImage();
+                String BlueMac="7F:B2:62:6A:F3:20";
+                mBluetoothManager= (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+                mBluetoothAdapter=mBluetoothManager.getAdapter();//耿大爷获取蓝牙适配器
+                final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(BlueMac);
+                ///Toasty.info(getApplicationContext(),"Please active bluetooth"+mBluetoothAdapter.isEnabled(),Toasty.LENGTH_SHORT,true).show();
+                if(!mBluetoothAdapter.isEnabled()) {
+                    Toasty.info(getApplicationContext(),"Please active bluetooth",Toasty.LENGTH_SHORT,true).show();
+                    AlertDialog.Builder mybuilder=new AlertDialog.Builder(AssenTaskDounwActivity.this);
+                    mybuilder.setTitle("Confirmation")
+                            .setMessage("Do you want to active bluetooth");
+                    mybuilder.setPositiveButton("Not Now", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).setNegativeButton("Right Now", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            mBluetoothAdapter.enable();
+                            Toasty.info(getApplicationContext(),"Bluetooth is active now.",Toasty.LENGTH_SHORT,true).show();
+                        }
+                    }).create().show();
+
+                    return;
+                }
+                else {
+                    printImage();
+                }
+
+
             }
         });
         ///initilize Pdf Image
@@ -236,7 +275,7 @@ public class AssenTaskDounwActivity extends AppCompatActivity {
     OutputStream os = null;
     private void printImage()
     {
-        final Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.imagepost);
+        final Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.mii);
         final byte[] bitmapGetByte=BitmapToRGBbyte(bitmap);
         String BlueMac="62:65:7A:5F:03:26";
         mBluetoothManager= (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
@@ -246,6 +285,7 @@ public class AssenTaskDounwActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                   /// Toast.makeText(AssenTaskDounwActivity.this, "Done", Toast.LENGTH_SHORT).show();
                     m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                     m5ocket.connect();
 
@@ -281,6 +321,7 @@ public class AssenTaskDounwActivity extends AppCompatActivity {
                     os.write(t_line7.getBytes());
                     os.write(t_line8.getBytes());
                     */
+                /*
                     String t_line1 = "! 0 200 200 "+bitmapHeight+" 1 \r\n";//bitmap.getHeight()
                     String t_line2 = "pw "+384+"\r\n";
                     String t_line3 = "DENSITY 12\r\n";
@@ -301,28 +342,123 @@ public class AssenTaskDounwActivity extends AppCompatActivity {
                     os .write(t_line6.getBytes());
                     os.write(t_line7.getBytes());
                     os.write(t_line8.getBytes());
-                    Handler handler=new Handler();
-                    handler.postDelayed(new Runnable() {
+                 */
+                    String t_line1 = "! 0 200 200 "+bitmapHeight+" 1 \r\n";//bitmap.getHeight()
+                    String t_line2 = "pw "+384+"\r\n";
+                    String t_line3 = "DENSITY 12\r\n";
+                    String t_line4 = "SPEED 3\r\n";
+                    String t_line5 = "CG "+384/8+" "+bitmapHeight+" 0 0 ";
+                    String t_line6 ="PR 0\r\n";
+                    String t_line7= "FORM\r\n";
+                    String t_line8 = "PRINT\r\n";
+                    String t_line9 = "\r\n";
+                    os.write(t_line1.getBytes());
+                    os.write(t_line2.getBytes());
+                    os.write(t_line3.getBytes());
+                    os .write(t_line4.getBytes());
+                    os .write(t_line5.getBytes());
+                    os .write(t_line4.getBytes());
+                    os.write(bitmapGetByte);
+                    os .write(t_line9.getBytes());
+                    os .write(t_line6.getBytes());
+                    os.write(t_line7.getBytes());
+                    os.write(t_line8.getBytes());
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                           try {
-                               os.flush();
-                               m5ocket.close();
-                           }catch (Exception e) {
-                              e.printStackTrace();
-                           }
+                            // write your code here
+                            countDownTimer =new CountDownTimer(10000,1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    KProgressHUD kProgressHUD;
+                                    double seconddd=millisUntilFinished/1000;
+                                    printimageA.setText("Sending Data : "+seconddd+" S");
+
+
+
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    printimageA.setText("Pick Image");
+                                    try {
+                                        os.flush();
+                                        os.flush();
+                                        m5ocket.close();
+                                    }catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    Toasty.success(getApplicationContext(),"Data Sending Complete",Toasty.LENGTH_SHORT,true).show();
+                                    return;
+
+                                }
+                            };
+                            countDownTimer.start();
                         }
-                    },5000);
+                    });
+                   /*
+                    countDownTimer =new CountDownTimer(10000,1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            double seconddd=millisUntilFinished/100;
+                            KProgressHUD.create(AssenTaskDounwActivity.this)
+                                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                                    .setLabel("Please wait "+seconddd+"s")
+                                    .setDetailsLabel("Sending data")
+                                    .setCancellable(true)
+                                    .setAnimationSpeed(2)
+                                    .setDimAmount(0.5f)
+                                    .show();
+
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            kProgressHUD.dismiss();
+                            Toasty.success(getApplicationContext(),"Done",Toasty.LENGTH_SHORT,true).show();
+                            return;
+
+                        }
+                    };
+ countDownTimer =new CountDownTimer(10000,1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            double seconddd=millisUntilFinished/100;
+                            KProgressHUD.create(AssenTaskDounwActivity.this)
+                                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                                    .setLabel("Please wait "+seconddd+"s")
+                                    .setDetailsLabel("Sending data")
+                                    .setCancellable(true)
+                                    .setAnimationSpeed(2)
+                                    .setDimAmount(0.5f)
+                                    .show();
+
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            kProgressHUD.dismiss();
+                            Toasty.success(getApplicationContext(),"Done",Toasty.LENGTH_SHORT,true).show();
+                            return;
+
+                        }
+                    };
+
+                    */
 
 
                 } catch (IOException e) {
                     Log.e(TAG, "e");
+
                 }
             }
         });
         thread.start();
     }
-
+CountDownTimer countDownTimer;
 
     private byte[]  BitmapToRGBbyte1(Bitmap bitmap) {
         ColorMatrix colorMatrix = new ColorMatrix();
