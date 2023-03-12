@@ -29,17 +29,20 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -47,6 +50,10 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.kerols.pdfconverter.CallBacks;
+import com.kerols.pdfconverter.ImageToPdf;
+import com.kerols.pdfconverter.PdfImageSetting;
+import com.kerols.pdfconverter.PdfPage;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -54,6 +61,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Set;
 import java.util.UUID;
@@ -63,180 +71,260 @@ import es.dmoral.toasty.Toasty;
 import static android.content.ContentValues.TAG;
 
 public class AssenTaskDounwActivity extends AppCompatActivity {
-Uri imageuri;
-int flag=0;
-BluetoothSocket m5ocket;
-BluetoothManager  mBluetoothManager;
-BluetoothAdapter mBluetoothAdapter;
-     BluetoothDevice device;
-     ImageView imageposit;
+    Uri imageuri;
+    int flag = 0;
+    BluetoothSocket m5ocket;
+    BluetoothManager mBluetoothManager;
+    BluetoothAdapter mBluetoothAdapter;
+    BluetoothDevice device;
+    ImageView imageposit;
+    PdfPage pdfPage;
+    Button printimageA;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assen_task_dounw);
-        imageposit=findViewById(R.id.imageposit);
+        imageposit = findViewById(R.id.imageposit);
+        printimageA=findViewById(R.id.printimageA);
+        printimageA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printImage();
+            }
+        });
+        ///initilize Pdf Image
 
+        /*
+         pdfPage = new PdfPage(AssenTaskDounwActivity.this);
+        pdfPage.setPageSize(1100,1100);
+        PdfImageSetting mPdfImageSetting = new PdfImageSetting();
+        // Custom Image Size
+        mPdfImageSetting.setImageSize(200,200);
+
+        mPdfImageSetting.setMargin(20,20,20,20);
+
+
+        mPdfImageSetting.setImageSize(200,200);
+
+        mPdfImageSetting.setMargin(20,20,20,20);
+
+        // Setting for the second image on the page
+
+        PdfImageSetting mPdfImageSetting2 = new PdfImageSetting();
+
+        mPdfImageSetting2.setImageSize(100,100);
+
+        mPdfImageSetting2.setMargin(220,220,220,220);
+        pdfPage.add(mPdfImageSetting);
+        pdfPage.add(mPdfImageSetting2);
+         */
+
+
+//        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.imagepost);
+//        final byte[] bitmapGetByte = BitmapToRGBbyte(bitmap);
+//        String BlueMac = "62:65:7A:5F:03:26";
+//        mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+//        mBluetoothAdapter = mBluetoothManager.getAdapter();
+//
+//
+//        if (mBluetoothAdapter.isEnabled()) {
+//
+//            try {
+//                device = mBluetoothAdapter.getRemoteDevice(BlueMac);
+//                m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+//                m5ocket.connect();
+//                if (m5ocket.isConnected()) {
+//                    Toast.makeText(this, "Connectd with " + m5ocket.getRemoteDevice(), Toast.LENGTH_SHORT).show();
+//                }
+//            } catch (Exception e) {
+//                Toast.makeText(this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        ///  Toast.makeText(AssenTaskDounwActivity.this, "gfgfg", Toast.LENGTH_SHORT).show();
+//                        if (m5ocket.isConnected()) {
+//                            OutputStream os = null;
+//                            os = m5ocket.getOutputStream();
+//                            String t_line1 = "! 0 200 200 " + bitmap.getHeight() + " 1 \r\n";
+//                            String t_line2 = "pw " + 384 + "\r\n";
+//                            String t_line3 = "DENSITY 12\r\n";
+//                            String t_line4 = "SPEED 3\r\n";
+//                            String t_line5 = "CG " + 384 / 8 + " " + bitmap.getHeight() + " 0 0 ";
+//                            String t_line6 = "PR 0\r\n";
+//                            String t_line7 = "FORM\r\n";
+//                            String t_line8 = "PRINT\r\n";
+//                            String t_line9 = "\r\n";
+//                            os.write(t_line1.getBytes());
+//                            os.write(t_line2.getBytes());
+//                            os.write(t_line3.getBytes());
+//                            os.write(t_line4.getBytes());
+//                            os.write(t_line5.getBytes());
+//                            os.write(t_line4.getBytes());
+//                            os.write(bitmapGetByte);
+//                            os.write(t_line9.getBytes());
+//                            os.write(t_line6.getBytes());
+//                            os.write(t_line7.getBytes());
+//                            os.write(t_line8.getBytes());
+////                          os.flush();
+////                          os.flush();
+////                          m5ocket.close();
+//                        } else {
+//                            m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+//                            m5ocket.connect();
+//                            OutputStream os = null;
+//                            os = m5ocket.getOutputStream();
+//                            String t_line1 = "! 0 200 200 " + bitmap.getHeight() + " 1 \r\n";
+//                            String t_line2 = "pw " + 384 + "\r\n";
+//                            String t_line3 = "DENSITY 12\r\n";
+//                            String t_line4 = "SPEED 3\r\n";
+//                            String t_line5 = "CG " + 384 / 8 + " " + bitmap.getHeight() + " 0 0 ";
+//                            String t_line6 = "PR 0\r\n";
+//                            String t_line7 = "FORM\r\n";
+//                            String t_line8 = "PRINT\r\n";
+//                            String t_line9 = "\r\n";
+//                            os.write(t_line1.getBytes());
+//                            os.write(t_line2.getBytes());
+//                            os.write(t_line3.getBytes());
+//                            os.write(t_line4.getBytes());
+//                            os.write(t_line5.getBytes());
+//                            os.write(t_line4.getBytes());
+//                            os.write(bitmapGetByte);
+//                            os.write(t_line9.getBytes());
+//                            os.write(t_line6.getBytes());
+//                            os.write(t_line7.getBytes());
+//                            os.write(t_line8.getBytes());
+////                          os.flush();
+////                          os.flush();
+////                          m5ocket.close();
+//                        }
+//
+//
+//                    } catch (Exception e) {
+//                        Log.e(TAG, "e" + e.getMessage());
+//                        //Toast.makeText(AssenTaskDounwActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }).start();
+//
+//            Thread thread = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            });
+//            thread.start();
+//            if (thread.getState() == Thread.State.NEW || thread.getState() == Thread.State.BLOCKED ||
+//                    thread.getState() == Thread.State.TERMINATED) {
+//                Toast.makeText(this, "" + thread.getState(), Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(this, "" + thread.getState(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//        } else {
+//            Toast.makeText(this, "Please active bluetooth", Toast.LENGTH_SHORT).show();
+//        }
+
+
+        ///   else {
+        /// Toast.makeText(this, "ddddd", Toast.LENGTH_SHORT).show();
+
+
+    }
+    OutputStream os = null;
+    private void printImage()
+    {
         final Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.imagepost);
-       final byte[] bitmapGetByte=BitmapToRGBbyte(bitmap);
-        String BlueMac="F7:85:ED:28:B4:F0";
+        final byte[] bitmapGetByte=BitmapToRGBbyte(bitmap);
+        String BlueMac="62:65:7A:5F:03:26";
         mBluetoothManager= (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-        mBluetoothAdapter=mBluetoothManager.getAdapter();
+        mBluetoothAdapter=mBluetoothManager.getAdapter();//耿大爷获取蓝牙适配器
+        final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(BlueMac);
+        Thread thread =new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                    m5ocket.connect();
+
+                    os = m5ocket.getOutputStream();
+                    int bitmapHeight=1080;
+                    if(bitmap.getHeight()>bitmapHeight)
+                    {
+                        bitmapHeight=1080;
+                    }
+                    else
+                    {
+                        bitmapHeight=bitmap.getHeight();
+                    }
+                   /*
+                    String t_line1 = "! 0 200 200 "+bitmapHeight+" 1 \r\n";//bitmap.getHeight()
+                    String t_line2 = "pw "+384+"\r\n";
+                    String t_line3 = "DENSITY 12\r\n";
+                    String t_line4 = "SPEED 3\r\n";
+                    String t_line5 = "CG "+384/8+" "+bitmapHeight+" 0 0 ";
+                    String t_line6 ="PR 0\r\n";
+                    String t_line7= "FORM\r\n";
+                    String t_line8 = "PRINT\r\n";
+                    String t_line9 = "\r\n";
+                    os.write(t_line1.getBytes());
+                    os.write(t_line2.getBytes());
+                    os.write(t_line3.getBytes());
+                    os .write(t_line4.getBytes());
+                    os .write(t_line5.getBytes());
+                    os .write(t_line4.getBytes());
+                    os.write(bitmapGetByte);
+                    os .write(t_line9.getBytes());
+                    os .write(t_line6.getBytes());
+                    os.write(t_line7.getBytes());
+                    os.write(t_line8.getBytes());
+                    */
+                    String t_line1 = "! 0 200 200 "+bitmapHeight+" 1 \r\n";//bitmap.getHeight()
+                    String t_line2 = "pw "+384+"\r\n";
+                    String t_line3 = "DENSITY 12\r\n";
+                    String t_line4 = "SPEED 3\r\n";
+                    String t_line5 = "CG "+384/8+" "+bitmapHeight+" 0 0 ";
+                    String t_line6 ="PR 0\r\n";
+                    String t_line7= "FORM\r\n";
+                    String t_line8 = "PRINT\r\n";
+                    String t_line9 = "\r\n";
+                    os.write(t_line1.getBytes());
+                    os.write(t_line2.getBytes());
+                    os.write(t_line3.getBytes());
+                    os .write(t_line4.getBytes());
+                    os .write(t_line5.getBytes());
+                    os .write(t_line4.getBytes());
+                    os.write(bitmapGetByte);
+                    os .write(t_line9.getBytes());
+                    os .write(t_line6.getBytes());
+                    os.write(t_line7.getBytes());
+                    os.write(t_line8.getBytes());
+                    Handler handler=new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                           try {
+                               os.flush();
+                               m5ocket.close();
+                           }catch (Exception e) {
+                              e.printStackTrace();
+                           }
+                        }
+                    },5000);
 
 
-        if (mBluetoothAdapter.isEnabled()) {
-
-          try {
-                device = mBluetoothAdapter.getRemoteDevice(BlueMac);
-              m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-              m5ocket.connect();
-              if (m5ocket.isConnected()) {
-                  Toast.makeText(this, "Connectd with "+m5ocket.getRemoteDevice(), Toast.LENGTH_SHORT).show();
-              }
-          }catch (Exception e) {
-              Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-          }
-          new Thread(new Runnable() {
-              @Override
-              public void run() {
-                  try {
-                      ///  Toast.makeText(AssenTaskDounwActivity.this, "gfgfg", Toast.LENGTH_SHORT).show();
-                      if (m5ocket.isConnected()) {
-                          OutputStream os = null;
-                          os = m5ocket.getOutputStream();
-                          String t_line1 = "! 0 200 200 "+bitmap.getHeight()+" 1 \r\n";
-                          String t_line2 = "pw "+384+"\r\n";
-                          String t_line3 = "DENSITY 12\r\n";
-                          String t_line4 = "SPEED 3\r\n";
-                          String t_line5 = "CG "+384/8+" "+bitmap.getHeight()+" 0 0 ";
-                          String t_line6 ="PR 0\r\n";
-                          String t_line7= "FORM\r\n";
-                          String t_line8 = "PRINT\r\n";
-                          String t_line9 = "\r\n";
-                          os.write(t_line1.getBytes());
-                          os.write(t_line2.getBytes());
-                          os.write(t_line3.getBytes());
-                          os .write(t_line4.getBytes());
-                          os .write(t_line5.getBytes());
-                          os .write(t_line4.getBytes());
-                          os.write(bitmapGetByte);
-                          os .write(t_line9.getBytes());
-                          os .write(t_line6.getBytes());
-                          os.write(t_line7.getBytes());
-                          os.write(t_line8.getBytes());
-                          os.flush();
-                          os.flush();
-                          m5ocket.close();
-                      }
-                      else {
-                          m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-                          m5ocket.connect();
-                          OutputStream os = null;
-                          os = m5ocket.getOutputStream();
-                          String t_line1 = "! 0 200 200 "+bitmap.getHeight()+" 1 \r\n";
-                          String t_line2 = "pw "+384+"\r\n";
-                          String t_line3 = "DENSITY 12\r\n";
-                          String t_line4 = "SPEED 3\r\n";
-                          String t_line5 = "CG "+384/8+" "+bitmap.getHeight()+" 0 0 ";
-                          String t_line6 ="PR 0\r\n";
-                          String t_line7= "FORM\r\n";
-                          String t_line8 = "PRINT\r\n";
-                          String t_line9 = "\r\n";
-                          os.write(t_line1.getBytes());
-                          os.write(t_line2.getBytes());
-                          os.write(t_line3.getBytes());
-                          os .write(t_line4.getBytes());
-                          os .write(t_line5.getBytes());
-                          os .write(t_line4.getBytes());
-                          os.write(bitmapGetByte);
-                          os .write(t_line9.getBytes());
-                          os .write(t_line6.getBytes());
-                          os.write(t_line7.getBytes());
-                          os.write(t_line8.getBytes());
-                          os.flush();
-                          os.flush();
-                          m5ocket.close();
-                      }
-
-
-                  } catch (Exception e) {
-                      Log.e(TAG, "e"+e.getMessage());
-                      //Toast.makeText(AssenTaskDounwActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                  }
-              }
-          }).start();
-
-            Thread thread =new Thread(new Runnable() {
-                @Override
-                public void run() {
-
+                } catch (IOException e) {
+                    Log.e(TAG, "e");
                 }
-            });
-            thread.start();
-            if (thread.getState()==Thread.State.NEW||thread.getState()==Thread.State.BLOCKED||
-                    thread.getState()==Thread.State.TERMINATED) {
-                Toast.makeText(this, ""+thread.getState(), Toast.LENGTH_SHORT).show();
             }
-            else {
-                Toast.makeText(this, ""+thread.getState(), Toast.LENGTH_SHORT).show();
-            }
-
-        }
-        else {
-            Toast.makeText(this, "Please active bluetooth", Toast.LENGTH_SHORT).show();
-        }
-
-      /*
-      try {
-          BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-          Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-
-          for (BluetoothDevice device : pairedDevices) {
-              String deviceName = device.getName();
-              String deviceAddress = device.getAddress();
-              // Do something with the device name and address
-              Toast.makeText(this, ""+deviceAddress, Toast.LENGTH_SHORT).show();
-          }
-          String printerMacAddress = "C6:D1:B8:06:90:DB"; // Replace with your printer's MAC address
-          BluetoothDevice printerDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(printerMacAddress);
-          BluetoothSocket socket = printerDevice.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-          socket.connect();
-          if(bluetoothAdapter.equals(null)) {
-          }
-          else {
-              if (socket.isConnected()) {
-
-                  Toast.makeText(this, "cccc", Toast.LENGTH_SHORT).show();
-                  PrintHelper printHelper = new PrintHelper(AssenTaskDounwActivity.this);
-                  printHelper.setScaleMode(PrintHelper.SCALE_MODE_FIT);
-                  printHelper.setOrientation(PrintHelper.ORIENTATION_PORTRAIT);
-                  Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.imagepost);
-
-                  printHelper.setColorMode(PrintHelper.COLOR_MODE_COLOR);
-                  printHelper.printBitmap("My Image", bitmap);
-                  OutputStream outputStream = socket.getOutputStream();
-Write the image data to the output stream
-                  outputStream.write(imageData);
-                  outputStream.flush();
-                  socket.close();
-
-
-    }
-           ///   else {
-       /// Toast.makeText(this, "ddddd", Toast.LENGTH_SHORT).show();
-    }
-}
-
-      }catch (Exception e) {
-              e.printStackTrace();
-              }
-       */
-
-
+        });
+        thread.start();
     }
 
 
-
-    private byte[]  BitmapToRGBbyte(Bitmap bitmap) {
+    private byte[]  BitmapToRGBbyte1(Bitmap bitmap) {
         ColorMatrix colorMatrix = new ColorMatrix();
         ColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
         Bitmap argbBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
@@ -255,17 +343,21 @@ Write the image data to the output stream
         byte[] rgbValues = new byte[totalBytes];
         @ColorInt int[] argbPixels = new int[totalPixels];
         bitmap.getPixels(argbPixels, 0, width, 0, 0, width, height);
+
+
         for (int i = 0; i < totalPixels; i++) {
             @ColorInt int argbPixel = argbPixels[i];
-            int red = Color.red(argbPixel);
-            int green = Color.green(argbPixel);
-            int blue = Color.blue(argbPixel);
+            int R = Color.red(argbPixel);
+            int G = Color.green(argbPixel);
+            int B = Color.blue(argbPixel);
             int alpha = Color.alpha(argbPixel);
 
-            rgbValues[i * componentsPerPixel + 0] = (byte) red;
-            rgbValues[i * componentsPerPixel + 1] = (byte) green;
-            rgbValues[i * componentsPerPixel + 2] = (byte) blue;
-            //            rgbValues[i * componentsPerPixel + 3] = (byte) alpha;
+            R=G=B=(int)((0.299*R)+(0.587*G)+(0.114*B));
+
+            rgbValues[i * componentsPerPixel + 0] = (byte) R;
+            rgbValues[i * componentsPerPixel + 1] = (byte) G;
+            rgbValues[i * componentsPerPixel + 2] = (byte) B;
+
         }
 
         return rgbValues;
@@ -277,10 +369,10 @@ Write the image data to the output stream
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(intent, 101);
+//                        Intent intent = new Intent();
+//                        intent.setType("image/*");
+//                        intent.setAction(Intent.ACTION_GET_CONTENT);
+//                        startActivityForResult(intent, 101);
 
                     }
 
@@ -322,7 +414,41 @@ Write the image data to the output stream
             createImageToPDF(bitmapUri);
             //
             //  putdata_indatabase(bitmapUri);
+        /*
+            ImageToPdf imageToPdf = new ImageToPdf(pdfPage,AssenTaskDounwActivity.this);
+            imageToPdf.DataToPDF(data,
+                    new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+                            "iMAGEtoPDF.pdf"), new CallBacks() {
+                        @Override
+                        public void onFinish(String path) {
+                            Toast.makeText(getApplicationContext(),"onFinish",Toast.LENGTH_SHORT).show();
+                        }
 
+                        @Override
+                        public void onError(Throwable throwable) {
+                            Toast.makeText(getApplicationContext(),"onError",Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "onError: ", throwable );
+                        }
+
+                        @Override
+                        public void onProgress(int progress , int max) {
+                            Log.e(TAG, "onProgress: " +  progress  + "  " +  max );
+
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            Toast.makeText(getApplicationContext(),"onCancel",Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void onStart() {
+                            Toast.makeText(getApplicationContext(),"onStart",Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+         */
         }
 
     }
@@ -361,9 +487,31 @@ Write the image data to the output stream
 
     private void createdef(boolean request) {
         if (request==true) {
+           /*
             WindowManager windowManager=(WindowManager)getSystemService(Context.WINDOW_SERVICE);
             Display display=windowManager.getDefaultDisplay();
             DisplayMetrics displayMetrics=new DisplayMetrics();
+            this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            float height=displayMetrics.heightPixels;
+            float width=displayMetrics.widthPixels;
+            int convertHeirht=(int)height,comverWidth=(int)width;
+            */
+           try {
+               Document document=new Document();
+               File file=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"Testing.pdf");
+               FileOutputStream fileOutputStream=new FileOutputStream(file);
+               PdfWriter.getInstance(document,fileOutputStream);
+               document.open();
+               Paragraph paragraph=new Paragraph("Hello It's me");
+               document.add(paragraph);
+               document.close();
+               Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+
+
+           }catch (Exception e) {
+               Toast.makeText(this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+           }
+
             
         }
         else {
@@ -461,40 +609,115 @@ return null;
        }
 
     }
-BitSet bitSet;
-    private void convertToRGBScale(Bitmap bitmapOrg, int width, int height) {
-        int newHeight=height;
-        int newWidth=width;
-        int R=0,B=0,G=0;
+//BitSet bitSet;
+    private  byte[]  BitmapToRGBbyte(Bitmap bitmapOrg) {
+        ArrayList<Byte> Gray_ArrayList;
+        Gray_ArrayList =new ArrayList<Byte>();
+        int height = 1080;
+        if(bitmapOrg.getHeight()>height)
+        {
+            height=1080;
+        }
+        else
+        {
+            height=bitmapOrg.getHeight();
+        }
+        int width = 384;
+        int R = 0, B = 0, G = 0;
         int pixles;
-        int x=0,y=0;
-   bitSet=new BitSet();
-   try {
-       for ( x=0; x<height;x++) {
-           for ( y=0;y<width;y++) {
-               pixles=bitmapOrg.getPixel(x,y);
-              R=Color.red(pixles);
-              G=Color.green(pixles);
-              B=Color.blue(pixles);
-              //setcolor
-               R=G=B=(int)((0.299*R)+(0.587*G)+(0.114*B));
-               int k=0;
-               if (R<55) {
-                   bitSet.set(k);
-               }
-               k++;
+        int x = 0, y = 0;
+        Byte[] Gray_Send;
+        //bitSet = new BitSet();
+        try {
+            int k = 0;
+            int Send_i = 0;
+            int x_GetR;
+            for (x = 0; x < height; x++) {
+                k=0;
+                for (y = 0; y < width; y++) {
+                    pixles = bitmapOrg.getPixel(x, y);
+                    R = Color.red(pixles);
+                    G = Color.green(pixles);
+                    B = Color.blue(pixles);
+                    //setcolor
+                    R = G = B = (int) ((0.299 * R) + (0.587 * G) + (0.114 * B));
+
+                    if (R < 120) {
+                        //bitSet.set(k);
+                        x_GetR = 0;
+                    } else {
+                        x_GetR = 1;
+
+                    }
+                    ///texting cde
+                    k++;
+                    if (k == 1) {
+                         Send_i=0;
+                        Send_i = Send_i + x_GetR | 0x80;
+
+                    } else if (k == 2) {
+
+                        Send_i = Send_i + x_GetR | 0x40;
+
+                    } else if (k == 3) {
+
+                        Send_i = Send_i + x_GetR | 0x20;
+
+                    } else if (k == 4) {
+
+                        Send_i = Send_i + x_GetR | 0x10;
+
+                    } else if (k == 5) {
+
+                        Send_i = Send_i + x_GetR | 0x08;
+
+                    } else if (k == 6) {
+
+                        Send_i = Send_i + x_GetR | 0x04;
+
+                    } else if (k == 7) {
+
+                        Send_i = Send_i + x_GetR | 0x02;
+
+                    } else if (k == 8) {
+
+                        Send_i = Send_i + x_GetR | 0x01;
+
+                        Gray_ArrayList.add((byte) Send_i);
+                        Send_i = 0;
+                        k = 0;
+                       // byte b = (byte) Send_i; // replace with your byte value
+
+                        //i control it
 
 
-           }
-       }
+                    }
 
-   }catch (Exception e) {
 
-   }
+                    /////////////////////=====================================
 
+
+                }
+            }
+
+            byte[] sss=new byte[Gray_ArrayList.size()];
+              Gray_Send=new Byte[Gray_ArrayList.size()];
+            Gray_ArrayList.toArray(Gray_Send);
+            for(int xx=0;xx<Gray_Send.length;xx++){
+                sss[xx]=Gray_Send[xx];
+            }
+            return  sss;
+        } catch (Exception e) {
+
+        }
+        return null;
     }
 
+
+
+
     private void resizeImage(Bitmap mainBitma, int height, int width) {
+
         Bitmap BitmapOrg = mainBitma;
         int width_1 = BitmapOrg.getWidth();
         int height_1 = BitmapOrg.getHeight();
