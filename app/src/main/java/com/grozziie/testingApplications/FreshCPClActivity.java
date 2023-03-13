@@ -81,7 +81,7 @@ public class FreshCPClActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String BlueMac="7F:B2:62:6A:F3:20";
                 mBluetoothManager= (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
-                mBluetoothAdapter=mBluetoothManager.getAdapter();//耿大爷获取蓝牙适配器
+                mBluetoothAdapter=mBluetoothManager.getAdapter();
                 final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(BlueMac);
                 ///Toasty.info(getApplicationContext(),"Please active bluetooth"+mBluetoothAdapter.isEnabled(),Toasty.LENGTH_SHORT,true).show();
                 if(!mBluetoothAdapter.isEnabled()) {
