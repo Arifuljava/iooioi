@@ -160,6 +160,7 @@ public class FreshCPClActivity extends AppCompatActivity {
     /*========================================================================================================
     ==================================PRINT SECTION===========================================================
      */
+    int bitmapHeight=1080;
     OutputStream os = null;
     private void printImage()
     {
@@ -178,7 +179,7 @@ public class FreshCPClActivity extends AppCompatActivity {
                     m5ocket.connect();
 
                     os = m5ocket.getOutputStream();
-                    int bitmapHeight=1080;
+
                     if(bitmap.getHeight()>bitmapHeight)
                     {
                         bitmapHeight=1080;
@@ -188,26 +189,7 @@ public class FreshCPClActivity extends AppCompatActivity {
                         bitmapHeight=bitmap.getHeight();
                     }
 
-                    String t_line1 = "! 0 200 200 "+bitmapHeight+" 1 \r\n";//bitmap.getHeight()
-                    String t_line2 = "pw "+384+"\r\n";
-                    String t_line3 = "DENSITY 12\r\n";
-                    String t_line4 = "SPEED 3\r\n";
-                    String t_line5 = "CG "+384/8+" "+bitmapHeight+" 0 0 ";
-                    String t_line6 ="PR 0\r\n";
-                    String t_line7= "FORM\r\n";
-                    String t_line8 = "PRINT\r\n";
-                    String t_line9 = "\r\n";
-                    os.write(t_line1.getBytes());
-                    os.write(t_line2.getBytes());
-                    os.write(t_line3.getBytes());
-                    os .write(t_line4.getBytes());
-                    os .write(t_line5.getBytes());
-                    os .write(t_line4.getBytes());
-                    os.write(bitmapGetByte);
-                    os .write(t_line9.getBytes());
-                    os .write(t_line6.getBytes());
-                    os.write(t_line7.getBytes());
-                    os.write(t_line8.getBytes());
+
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
@@ -225,17 +207,58 @@ public class FreshCPClActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFinish() {
-                                    printimageA.setText("Print Image");
-                                    try {
-                                        os.flush();
-                                        os.flush();
-                                        m5ocket.close();
-                                    }catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                                  try {
+                                      String t_line1 = "! 0 200 200 "+bitmapHeight+" 1 \r\n";//bitmap.getHeight()
+                                      String t_line2 = "pw "+384+"\r\n";
+                                      String t_line3 = "DENSITY 12\r\n";
+                                      String t_line4 = "SPEED 3\r\n";
+                                      String t_line5 = "CG "+384/8+" "+bitmapHeight+" 0 0 ";
+                                      String t_line6 ="PR 0\r\n";
+                                      String t_line7= "FORM\r\n";
+                                      String t_line8 = "PRINT\r\n";
+                                      String t_line9 = "\r\n";
+                                      os.write(t_line1.getBytes());
+                                      os.write(t_line2.getBytes());
+                                      os.write(t_line3.getBytes());
+                                      os .write(t_line4.getBytes());
+                                      os .write(t_line5.getBytes());
+                                      os .write(t_line4.getBytes());
+                                      os.write(bitmapGetByte);
+                                      os .write(t_line9.getBytes());
+                                      os .write(t_line6.getBytes());
+                                      os.write(t_line7.getBytes());
+                                      os.write(t_line8.getBytes());
+                                  }catch (Exception e) {
+                                      e.printStackTrace();
+                                  }
+                                  countDownTimer1=new CountDownTimer(2000,1000) {
+                                      @Override
+                                      public void onTick(long millisUntilFinished) {
+                                          long second=  (millisUntilFinished/1000);
+                                          int mysecond=Integer.parseInt(String.valueOf(second));
 
-                                    Toasty.success(getApplicationContext(),"Data Sending Complete",Toasty.LENGTH_SHORT,true).show();
-                                    return;
+
+
+                                      }
+
+                                      @Override
+                                      public void onFinish() {
+
+                                          printimageA.setText("Print Image");
+                                          try {
+                                              os.flush();
+                                              os.flush();
+                                              m5ocket.close();
+                                          }catch (Exception e) {
+                                              e.printStackTrace();
+                                          }
+
+                                          Toasty.success(getApplicationContext(),"Data Sending Complete",Toasty.LENGTH_SHORT,true).show();
+                                          return;
+                                      }
+                                  }.start();
+                                  countDownTimer1.start();
+
 
                                 }
                             };
@@ -253,7 +276,7 @@ public class FreshCPClActivity extends AppCompatActivity {
         });
         thread.start();
     }
-    CountDownTimer countDownTimer;
+    CountDownTimer countDownTimer,countDownTimer1;
     private  byte[]  BitmapToRGBbyte(Bitmap bitmapOrg) {
         ArrayList<Byte> Gray_ArrayList;
         Gray_ArrayList =new ArrayList<Byte>();

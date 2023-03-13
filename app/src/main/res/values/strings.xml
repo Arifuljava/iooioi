@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">MyAllTesting</string>
+    <string name="app_name">Grozziie</string>
+    <string name="powered_by">Powered by</string>
+    <string name="developer_depository">THT Electronic Ltd.</string>
+
+    <!-- Welcome Screen Strings -->
+
+    <!-- Sign Up & Login Screen Strings -->
+
+    <!-- Verify OTP Screen Strings -->
+
+    <!-- Forgot Password Screen Strings -->
+
+    <!-- Home Screen Strings -->
 </resources>

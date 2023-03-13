@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1086775298153",
+    "firebase_url": "https://thtdemoproject-default-rtdb.firebaseio.com",
+    "project_id": "thtdemoproject",
+    "storage_bucket": "thtdemoproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086775298153:android:84a1be91205c8ea275baf8",
+        "android_client_info": {
+          "package_name": "com.example.testingtht"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086775298153-r11f12rnqk8bsf5olthoui24ore21ag8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3bCrTOSFCwh1QEn0KPq9jeGzCSGKrmhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086775298153-r11f12rnqk8bsf5olthoui24ore21ag8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086775298153:android:b5123f40129dc16c75baf8",
+        "android_client_info": {
+          "package_name": "com.grozziie.designpart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086775298153-r11f12rnqk8bsf5olthoui24ore21ag8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3bCrTOSFCwh1QEn0KPq9jeGzCSGKrmhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086775298153-r11f12rnqk8bsf5olthoui24ore21ag8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086775298153:android:ea697ffdfe8fddc175baf8",
+        "android_client_info": {
+          "package_name": "com.grozziie.testingApplications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086775298153-r11f12rnqk8bsf5olthoui24ore21ag8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3bCrTOSFCwh1QEn0KPq9jeGzCSGKrmhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086775298153-r11f12rnqk8bsf5olthoui24ore21ag8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

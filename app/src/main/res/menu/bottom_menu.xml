@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="General">
+        <menu>
+            <item
+                android:title="Home"
+                android:icon="@drawable/ic_baseline_home_24"
+                android:id="@+id/home">
+
+            </item>
+            <item
+                android:id="@+id/promotion"
+                android:icon="@drawable/ic_baseline_print_24"
+                android:title="Printer Details" />
+
+            <item
+                android:id="@+id/wishlist"
+                android:icon="@drawable/ic_baseline_bluetooth_connected_24"
+                android:title="Bluetooth Details" />
+            <item
+                android:id="@+id/setings"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="Settings" />
+        </menu>
+    </item>
+</menu>
