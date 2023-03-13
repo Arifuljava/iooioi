@@ -47,7 +47,7 @@
                         <com.airbnb.lottie.LottieAnimationView
                             android:foregroundTint="@color/white"
                             android:layout_width="50dp"
-                            android:id="@+id/image1"
+                            android:id="@+id/animationone"
                             android:layout_marginTop="20dp"
                             android:layout_alignParentRight="false"
                             android:layout_height="@dimen/space_50dp"
@@ -60,7 +60,7 @@
 
 
                         <com.nitish.typewriterview.TypeWriterView
-                            android:layout_below="@id/image1"
+                            android:layout_below="@id/animationone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
@@ -70,8 +70,9 @@
                             android:textSize="12dp"
                             android:textAlignment="center"
                             android:textColor="@color/material_drawer_header_selection_subtext"
-                            android:fontFamily="@font/josefinsans_semibold"
+                            android:fontFamily="@font/montserrat"
                             android:text="ESC Printer"
+                            android:id="@+id/escprinter"
                             android:gravity="center_horizontal" />
 
                     </RelativeLayout>
@@ -123,8 +124,125 @@
                             android:textSize="12dp"
                             android:textAlignment="center"
                             android:textColor="@color/material_drawer_header_selection_subtext"
-                            android:fontFamily="@font/josefinsans_semibold"
+                            android:fontFamily="@font/montserrat"
                             android:text="CPCL Printer"
+                            android:id="@+id/cpclanimation"
+                            android:gravity="center_horizontal" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            ///2
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/dailyCheckCard_1"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#fff"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="4dp"
+                    android:onClick="byyy"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginLeft="0dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:foregroundTint="@color/white"
+                            android:layout_width="50dp"
+                            android:id="@+id/deviceanimation"
+                            android:layout_marginTop="20dp"
+                            android:layout_alignParentRight="false"
+                            android:layout_height="@dimen/space_50dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="false"
+                            app:lottie_fileName="devices.json"
+                            app:lottie_loop="true"
+                            app:lottie_autoPlay="true"
+                            android:layout_gravity="center" />
+
+
+                        <com.nitish.typewriterview.TypeWriterView
+                            android:layout_below="@id/deviceanimation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="false"
+                            android:padding="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:textSize="12dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/material_drawer_header_selection_subtext"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Devices"
+                            android:id="@+id/devices"
+                            android:gravity="center_horizontal" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/luckySpinCard__3"
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:onClick="teambonus"
+
+                    app:cardBackgroundColor="#fff"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="4dp"
+                    app:cardCornerRadius="2dp"
+                    android:layout_marginLeft="0dp"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:foregroundTint="@color/white"
+                            android:layout_width="50dp"
+                            android:id="@+id/ettingsanimation"
+                            android:layout_marginTop="20dp"
+                            android:layout_alignParentRight="false"
+                            android:layout_height="@dimen/space_50dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="false"
+                            app:lottie_fileName="settings.json"
+                            app:lottie_loop="true"
+                            app:lottie_autoPlay="true"
+                            android:layout_gravity="center" />
+
+
+                        <com.nitish.typewriterview.TypeWriterView
+                            android:layout_below="@id/ettingsanimation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="false"
+                            android:padding="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:textSize="12dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/material_drawer_header_selection_subtext"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Settings"
+                            android:id="@+id/settingstext"
                             android:gravity="center_horizontal" />
                     </RelativeLayout>
 

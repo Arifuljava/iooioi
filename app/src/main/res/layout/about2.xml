@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/roundshape"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@drawable/roundshape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dailyCheckCard"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#fff"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="4dp"
+            android:onClick="byyy"
+            app:cardCornerRadius="2dp"
+            android:layout_marginLeft="0dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:foregroundTint="@color/white"
+                    android:layout_width="50dp"
+                    android:id="@+id/animationone"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentRight="false"
+                    android:layout_height="@dimen/space_50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="false"
+                    app:lottie_fileName="about.json"
+                    app:lottie_loop="true"
+                    app:lottie_autoPlay="true"
+                    android:layout_gravity="center" />
+
+
+                <com.nitish.typewriterview.TypeWriterView
+                    android:layout_below="@id/animationone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="false"
+                    android:padding="8dp"
+                    android:layout_marginLeft="0dp"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/material_drawer_header_selection_subtext"
+                    android:fontFamily="@font/montserrat"
+                    android:text="About ESC"
+                    android:id="@+id/escprinter"
+                    android:gravity="center_horizontal" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/luckySpinCard"
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1"
+                android:onClick="teambonus"
+
+                app:cardBackgroundColor="#fff"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="2dp"
+                android:layout_marginLeft="0dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:foregroundTint="@color/white"
+                        android:layout_width="50dp"
+                        android:id="@+id/image1"
+                        android:layout_marginTop="20dp"
+                        android:layout_alignParentRight="false"
+                        android:layout_height="@dimen/space_50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="false"
+                        app:lottie_fileName="printer.json"
+                        app:lottie_loop="true"
+                        app:lottie_autoPlay="true"
+                        android:layout_gravity="center" />
+
+
+                    <com.nitish.typewriterview.TypeWriterView
+                        android:layout_below="@id/image1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="false"
+                        android:padding="8dp"
+                        android:layout_marginLeft="0dp"
+                        android:textSize="12dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/material_drawer_header_selection_subtext"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Print Now"
+                        android:id="@+id/cpclanimation"
+                        android:gravity="center_horizontal" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

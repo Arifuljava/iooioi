@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:background="@drawable/roundshape"
+    android:padding="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:background="@drawable/roundshape"
+        android:padding="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ImageView
+            android:id="@+id/bluethooth"
+            android:layout_width="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_height="25dp"
+            android:src="@drawable/bluetooth"
+            ></ImageView>
+        <ImageView
+            android:id="@+id/canceldialouge"
+            android:layout_width="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="25dp"
+            android:src="@drawable/close"
+            ></ImageView>
+    </RelativeLayout>
+    <LinearLayout
+        android:background="@drawable/roundshape"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/download"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/recyclerbooth"
+
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/btn_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+            app:spinning_bar_width="4dp"
+                android:minWidth="150dp"
+            app:spinning_bar_color="#FFF"
+                android:text="Refresh"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
+            app:spinning_bar_padding="6dp"
+                ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

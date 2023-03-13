@@ -51,10 +51,10 @@
                         android:padding="8dp"
                         android:layout_marginRight="50dp"
                         android:layout_marginLeft="0dp"
-                        android:textSize="15dp"
+                        android:textSize="20dp"
                         android:textAlignment="viewStart"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/josefinsans_semibold"
+                        android:fontFamily="@font/montserrat"
                         android:text="Grozziie"
                         android:gravity="center_horizontal" />
 
@@ -119,9 +119,9 @@
         android:id="@+id/main_nav"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:itemIconTint="@color/colorAccent"
+        app:itemIconTint="@color/black"
 
-        app:itemTextColor="@color/colorAccent"
+        app:itemTextColor="@color/black"
         app:menu="@menu/bottom_menu"
         app:headerLayout="@layout/nav_header"
         android:layout_gravity="start">
