@@ -3,6 +3,7 @@ package com.grozziie.testingApplications;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -116,6 +117,9 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
     BluetoothAdapter bluetoothAdapter;
     BluetoothDevice bluetoothDevice;
     BluetoothSocket bluetoothSocket;
+    String uuid="00001101-0000-1000-8000-00805F9B34FB";
+    ////////Dialouge setup
+    Dialog mDialouge; 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +135,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         //////////////bluetooth checking
        try {
            bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
-           Toast.makeText(this, ""+bluetoothAdapter.isEnabled(), Toast.LENGTH_SHORT).show();
+           ////Toast.makeText(this, ""+bluetoothAdapter.isEnabled(), Toast.LENGTH_SHORT).show();
            if (!bluetoothAdapter.isEnabled()) {
                AlertDialog.Builder builder=new AlertDialog.Builder(JoinActivity.this);
                builder.setTitle("Bluetooth")
@@ -149,7 +153,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                        dialog.dismiss();
                        bluetoothAdapter.enable();
                        bluetoothAdapter.startDiscovery();
-                       
+
 
 
                    }
