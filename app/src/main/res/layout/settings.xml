@@ -51,6 +51,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp"
+            android:id="@+id/button_bluetooth_browse"
             android:background="@drawable/gradi"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"

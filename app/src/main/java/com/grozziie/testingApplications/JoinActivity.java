@@ -8,8 +8,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,8 +19,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +42,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection;
+import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections;
 import com.geniusforapp.fancydialog.FancyAlertDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -75,9 +81,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -119,7 +128,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
     BluetoothSocket bluetoothSocket;
     String uuid="00001101-0000-1000-8000-00805F9B34FB";
     ////////Dialouge setup
-    Dialog mDialouge; 
+    Dialog mDialouge;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +141,8 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setElevation(10.0f);
         getSupportActionBar().setElevation(10.0f);
+
+       /// Toast.makeText(this, ""+deviceName, Toast.LENGTH_SHORT).show();
         //////////////bluetooth checking
        try {
            bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
@@ -187,6 +198,45 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         mainDrawer.setAnimation(topAnimation);
         mainNav.setAnimation(topAnimation);
         ///cardanimation
+        ///enabling dialouge
+        try {
+            final Dialog mDialog = new Dialog(JoinActivity.this);
+
+
+            //mDialog = new Dialog(HomeACTIVITY.this);
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            //LayoutInflater factory = LayoutInflater.from(this);
+
+            mDialog.setContentView(R.layout.dialouge2);
+            mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CardView dailyCheckCard_circle=(CardView)mDialog.findViewById(R.id.dailyCheckCard_circle);
+            dailyCheckCard_circle.setAnimation(topAnimation);
+            TypeWriterView aboutcompanydetails=(TypeWriterView)mDialog.findViewById(R.id.aboutcompanydetails);
+            aboutcompanydetails.animateText(aboutcompanydetails.getText().toString());
+            aboutcompanydetails.setCharacterDelay(42);
+            aboutcompanydetails.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
+                @Override
+                public void onAnimationEnd() {
+                    //Do something
+                    aboutcompanydetails.isAnimationRunning(); //returns true if animation is still running
+                    aboutcompanydetails.stopAnimation(); //Stop the ongoing animation
+                    aboutcompanydetails.isTextInitialised(); //returns false if animation is not started
+                    Handler handler=new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ///mDialog.dismiss();
+                            Toasty.success(getApplicationContext(),"Welcome to GROZZIIE homepage",Toasty.LENGTH_SHORT,true).show();
+                            return;
+                        }
+                    },3000);
+                }
+            });
+
+            mDialog.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         ///card 1
         animationone=findViewById(R.id.animationone);
         escprinter=findViewById(R.id.escprinter);
@@ -224,6 +274,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                 luckySpinCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        startActivity(new Intent(getApplicationContext(),CSEPrinterActivity.class));
 
                     }
                 });
@@ -572,6 +623,75 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                     }
                 });
                 //////setup spinner
+                Button button_bluetooth_browse=(Button)bottomSheetDialog11.findViewById(R.id.button_bluetooth_browse);
+                button_bluetooth_browse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        firebaseFirestore=FirebaseFirestore.getInstance();
+
+                        final BluetoothConnection[] bluetoothDevicesList = (new BluetoothPrintersConnections()).getList();
+
+                        if (bluetoothDevicesList != null) {
+                            final String[] items = new String[bluetoothDevicesList.length + 1];
+                            items[0] = "Default printer";
+                            int i = 0;
+                            for (BluetoothConnection device : bluetoothDevicesList) {
+                                items[++i] = device.getDevice().getName();
+                                BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
+                                String deviceName = myDevice.getName();
+                                Date c = Calendar.getInstance().getTime();
+                               // System.out.println("Current time => " + c);
+
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                                String formattedDate = df.format(c);
+                                DeviceModel deviceModel=new DeviceModel(myDevice.getName(),""+myDevice.getAddress().toString(), uuid,formattedDate,deviceName,formattedDate);
+                                firebaseFirestore.collection("My_Devices")
+                                        .document(myDevice.getAddress())
+                                        .set(deviceModel)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                            }
+                                        });
+
+                            }
+
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(JoinActivity.this);
+                            alertDialog.setTitle("Bluetooth printer selection");
+                            alertDialog.setItems(items, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    int index = i - 1;
+                                    if (index == -1) {
+                                        selectedDevice = null;
+                                    } else {
+                                        selectedDevice = bluetoothDevicesList[index];
+                                    }
+                                    Button button = (Button) bottomSheetDialog11.findViewById(R.id.button_bluetooth_browse);
+                                    button.setText(items[i]);
+                                    Map<String, Object> user = new HashMap<>();
+                                    user.put("deviceaddress", ""+items[i]);
+                                    firebaseFirestore=FirebaseFirestore.getInstance();
+                                    firebaseFirestore.collection("Connected")
+                                            .document("abc@gmail.com")
+                                            .set(user)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+
+                                                }
+                                            });
+                                }
+                            });
+
+                            AlertDialog alert = alertDialog.create();
+                            alert.setCanceledOnTouchOutside(false);
+                            alert.show();
+
+                        }
+                    }
+                });
 
 
 
@@ -584,6 +704,8 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         });
 
     }
+    private BluetoothConnection selectedDevice;
+
 
     CardView dailyCheckCard,luckySpinCard,dailyCheckCard_1,luckySpinCard__3;
     TypeWriterView  escprinter,cpclanimation,devices,settingstext;

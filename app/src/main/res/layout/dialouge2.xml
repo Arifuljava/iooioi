@@ -11,13 +11,12 @@
     android:padding="2dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/dailyCheckCard"
+        android:id="@+id/dailyCheckCard_circle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="byyy"
         app:cardBackgroundColor="#fff"
         app:cardCornerRadius="120dp"
         app:cardElevation="4dp"
@@ -44,7 +43,7 @@
                     android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="false"
-                    app:lottie_fileName="aboutcompnay.json"
+                    app:lottie_fileName="eco.json"
                     app:lottie_loop="true"
                     app:lottie_autoPlay="true"
                     android:layout_gravity="center" />
@@ -59,13 +58,13 @@
                     android:padding="8dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp"
-                    android:textSize="12dp"
+                    android:textSize="10dp"
                     android:layout_marginBottom="10dp"
                     android:textAlignment="center"
                     android:textColor="@color/material_drawer_header_selection_subtext"
                     android:fontFamily="@font/montserrat"
                     android:text="THT-Space Electrical Company Ltd is one of most popular company in bangladesh to export printer to others country"
-                    android:id="@+id/devices"
+                    android:id="@+id/aboutcompanydetails"
                     android:gravity="center_horizontal" />
             </RelativeLayout>
 

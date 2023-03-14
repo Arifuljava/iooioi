@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.LOCAL_MAC_ADDRESS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -20,7 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CSECHAT"></activity>
+        <activity android:name=".CSEPrinterActivity"
+            android:parentActivityName=".JoinActivity"></activity>
+        <activity android:name=".CSECHAT" />
         <activity android:name=".CPCLCHAT" />
         <activity android:name=".JoinActivity" />
         <activity
@@ -32,9 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FreshCPClActivity" >
-
-        </activity>
+        <activity android:name=".FreshCPClActivity"></activity>
         <activity android:name=".AssenTaskDounwActivity" />
         <activity android:name=".CPClActivity" />
         <activity
