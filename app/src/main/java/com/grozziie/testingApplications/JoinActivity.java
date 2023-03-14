@@ -1,5 +1,6 @@
 package com.grozziie.testingApplications;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothAdapter;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +31,8 @@ import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.geniusforapp.fancydialog.FancyAlertDialog;
@@ -41,9 +45,14 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.jgabrielfreitas.core.BlurImageView;
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -61,8 +70,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
@@ -251,18 +262,115 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
             public void onClick(View v) {
                 final BottomSheetDialog bottomSheetDialog11 = new BottomSheetDialog(JoinActivity.this);
                 bottomSheetDialog11.setContentView(R.layout.devices);
+                ////refreshing data..............................data refreshing
+
                 CircularProgressButton btn_id=(CircularProgressButton)bottomSheetDialog11.findViewById(R.id.btn_id);
                 btn_id.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         btn_id.startAnimation();
-                        Handler handler=new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                btn_id.revertAnimation();
-                            }
-                        },3000);
+                        ////////refreshdata
+
+                        LottieAnimationView tv_no_cards=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards);
+                        RecyclerView recyclerbooth=(RecyclerView)bottomSheetDialog11.findViewById(R.id.recyclerbooth);
+                        LottieAnimationView tv_no_cards_empty=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards_empty);
+
+                        ////devices are setup from database
+
+                        firebaseFirestore=FirebaseFirestore.getInstance();
+                        ///getting data counter
+                        firebaseFirestore.collection("My_Devices")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        int count = 0;
+                                        for (DocumentSnapshot document : task.getResult()) {
+                                            count++;
+                                        }
+                                        if (count==0) {
+                                            tv_no_cards.setVisibility(View.VISIBLE);
+                                            recyclerbooth.setVisibility(View.GONE);
+                                            Handler handler=new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    tv_no_cards.setVisibility(View.GONE);
+                                                    recyclerbooth.setVisibility(View.GONE);
+                                                    tv_no_cards_empty.setVisibility(View.VISIBLE);
+                                                }
+                                            },2000);
+                                            Handler handler1=new Handler();
+                                            handler1.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    tv_no_cards.setVisibility(View.GONE);
+                                                    recyclerbooth.setVisibility(View.GONE);
+                                                    tv_no_cards_empty.setVisibility(View.VISIBLE);
+                                                    btn_id.revertAnimation();
+                                                    btn_id.setText("Refresh");
+                                                    Toasty.info(getApplicationContext(),"Refreshing Done",Toasty.LENGTH_SHORT,true).show();
+                                                    return;
+                                                }
+                                            },3000);
+                                        }
+                                        else {
+                                            tv_no_cards.setVisibility(View.GONE);
+                                            recyclerbooth.setVisibility(View.VISIBLE);
+                                            DocumentReference documentReference;
+                                            RecyclerView recyclerView;
+                                            DevicAdapter getDataAdapter1;
+                                            List<DeviceModel> getList;
+
+
+
+                                            getList = new ArrayList<>();
+                                            getDataAdapter1 = new DevicAdapter(getList);
+                                            firebaseFirestore = FirebaseFirestore.getInstance();
+                                            documentReference = firebaseFirestore.collection("My_Devices")
+                                                    .document();
+
+                                            recyclerbooth.setHasFixedSize(true);
+                                            recyclerbooth.setLayoutManager(new LinearLayoutManager(JoinActivity.this));
+                                            recyclerbooth.setAdapter(getDataAdapter1);
+
+
+                                            firebaseFirestore.collection("My_Devices")
+                                                    .orderBy("mydevicetime", Query.Direction.DESCENDING)
+                                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                                            for (DocumentChange ds : queryDocumentSnapshots.getDocumentChanges()) {
+                                                                if (ds.getType() == DocumentChange.Type.ADDED) {
+                                                                    DeviceModel get = ds.getDocument().toObject(DeviceModel.class);
+                                                                    getList.add(get);
+                                                                    getDataAdapter1.notifyDataSetChanged();
+                                                                }
+
+                                                            }
+                                                        }
+                                                    });
+                                            ////data refreshing
+                                            Handler handler1=new Handler();
+                                            handler1.postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    tv_no_cards.setVisibility(View.GONE);
+                                                    recyclerbooth.setVisibility(View.VISIBLE);
+                                                    tv_no_cards_empty.setVisibility(View.GONE);
+                                                    btn_id.revertAnimation();
+                                                    btn_id.setText("Refresh");
+                                                    Toasty.info(getApplicationContext(),"Refreshing Done",Toasty.LENGTH_SHORT,true).show();
+                                                    return;
+                                                }
+                                            },3000);
+
+
+                                        }
+                                    }
+                                });
+
+
                     }
                 });
                 ImageView bluethooth=(ImageView)bottomSheetDialog11.findViewById(R.id.bluethooth);
@@ -297,6 +405,79 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
 
                     }
                 });
+                LottieAnimationView tv_no_cards=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards);
+                RecyclerView recyclerbooth=(RecyclerView)bottomSheetDialog11.findViewById(R.id.recyclerbooth);
+                LottieAnimationView tv_no_cards_empty=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards_empty);
+
+                ////devices are setup from database
+
+                firebaseFirestore=FirebaseFirestore.getInstance();
+                ///getting data counter
+                firebaseFirestore.collection("My_Devices")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                int count = 0;
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    count++;
+                                }
+                               if (count==0) {
+                                   tv_no_cards.setVisibility(View.VISIBLE);
+                                   recyclerbooth.setVisibility(View.GONE);
+                                   Handler handler=new Handler();
+                                   handler.postDelayed(new Runnable() {
+                                       @Override
+                                       public void run() {
+                                           tv_no_cards.setVisibility(View.GONE);
+                                           recyclerbooth.setVisibility(View.GONE);
+                                           tv_no_cards_empty.setVisibility(View.VISIBLE);
+                                       }
+                                   },2000);
+                               }
+                               else {
+                                   tv_no_cards.setVisibility(View.GONE);
+                                   recyclerbooth.setVisibility(View.VISIBLE);
+                                   DocumentReference documentReference;
+                                   RecyclerView recyclerView;
+                                   DevicAdapter getDataAdapter1;
+                                   List<DeviceModel> getList;
+
+
+
+                                   getList = new ArrayList<>();
+                                   getDataAdapter1 = new DevicAdapter(getList);
+                                   firebaseFirestore = FirebaseFirestore.getInstance();
+                                   documentReference = firebaseFirestore.collection("My_Devices")
+                                           .document();
+
+                                   recyclerbooth.setHasFixedSize(true);
+                                   recyclerbooth.setLayoutManager(new LinearLayoutManager(JoinActivity.this));
+                                   recyclerbooth.setAdapter(getDataAdapter1);
+
+
+                                   firebaseFirestore.collection("My_Devices")
+                                           .orderBy("mydevicetime", Query.Direction.DESCENDING)
+                                           .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                               @Override
+                                               public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                                   for (DocumentChange ds : queryDocumentSnapshots.getDocumentChanges()) {
+                                                       if (ds.getType() == DocumentChange.Type.ADDED) {
+                                                           DeviceModel get = ds.getDocument().toObject(DeviceModel.class);
+                                                           getList.add(get);
+                                                           getDataAdapter1.notifyDataSetChanged();
+                                                       }
+
+                                                   }
+                                               }
+                                           });
+
+
+                               }
+                            }
+                        });
+
+                //////
 
 
 
@@ -369,6 +550,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         });
 
     }
+
     CardView dailyCheckCard,luckySpinCard,dailyCheckCard_1,luckySpinCard__3;
     TypeWriterView  escprinter,cpclanimation,devices,settingstext;
     LottieAnimationView  animationone,image1,deviceanimation,ettingsanimation;
@@ -377,12 +559,15 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 int id=item.getItemId();
 if (id==R.id.home) {
+    //mainDrawer.closeDrawers();;
+    mainDrawer.closeDrawer(Gravity.START,false);
     Toasty.success(getApplicationContext(),"You are home ",Toasty.LENGTH_SHORT,true).show();
 
 
 }
 else if (id==R.id.promotion)
 {
+    mainDrawer.closeDrawer(Gravity.START,false);
     String oo[]={"ESC Printer","CPCL Printer"};
     AlertDialog.Builder builder =new AlertDialog.Builder(JoinActivity.this);
     builder.setTitle("Printer Options")
@@ -449,20 +634,118 @@ bottomSheetDialog11.show();
 
 }
 else if(id==R.id.wishlist) {
+    mainDrawer.closeDrawer(Gravity.START,false);
     final BottomSheetDialog bottomSheetDialog11 = new BottomSheetDialog(JoinActivity.this);
     bottomSheetDialog11.setContentView(R.layout.devices);
+    ////refreshing data..............................data refreshing
+
     CircularProgressButton btn_id=(CircularProgressButton)bottomSheetDialog11.findViewById(R.id.btn_id);
     btn_id.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             btn_id.startAnimation();
-            Handler handler=new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    btn_id.revertAnimation();
-                }
-            },3000);
+            ////////refreshdata
+
+            LottieAnimationView tv_no_cards=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards);
+            RecyclerView recyclerbooth=(RecyclerView)bottomSheetDialog11.findViewById(R.id.recyclerbooth);
+            LottieAnimationView tv_no_cards_empty=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards_empty);
+
+            ////devices are setup from database
+
+            firebaseFirestore=FirebaseFirestore.getInstance();
+            ///getting data counter
+            firebaseFirestore.collection("My_Devices")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            int count = 0;
+                            for (DocumentSnapshot document : task.getResult()) {
+                                count++;
+                            }
+                            if (count==0) {
+                                tv_no_cards.setVisibility(View.VISIBLE);
+                                recyclerbooth.setVisibility(View.GONE);
+                                Handler handler=new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tv_no_cards.setVisibility(View.GONE);
+                                        recyclerbooth.setVisibility(View.GONE);
+                                        tv_no_cards_empty.setVisibility(View.VISIBLE);
+                                    }
+                                },2000);
+                                Handler handler1=new Handler();
+                                handler1.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tv_no_cards.setVisibility(View.GONE);
+                                        recyclerbooth.setVisibility(View.GONE);
+                                        tv_no_cards_empty.setVisibility(View.VISIBLE);
+                                        btn_id.revertAnimation();
+                                        btn_id.setText("Refresh");
+                                        Toasty.info(getApplicationContext(),"Refreshing Done",Toasty.LENGTH_SHORT,true).show();
+                                        return;
+                                    }
+                                },3000);
+                            }
+                            else {
+                                tv_no_cards.setVisibility(View.GONE);
+                                recyclerbooth.setVisibility(View.VISIBLE);
+                                DocumentReference documentReference;
+                                RecyclerView recyclerView;
+                                DevicAdapter getDataAdapter1;
+                                List<DeviceModel> getList;
+
+
+
+                                getList = new ArrayList<>();
+                                getDataAdapter1 = new DevicAdapter(getList);
+                                firebaseFirestore = FirebaseFirestore.getInstance();
+                                documentReference = firebaseFirestore.collection("My_Devices")
+                                        .document();
+
+                                recyclerbooth.setHasFixedSize(true);
+                                recyclerbooth.setLayoutManager(new LinearLayoutManager(JoinActivity.this));
+                                recyclerbooth.setAdapter(getDataAdapter1);
+
+
+                                firebaseFirestore.collection("My_Devices")
+                                        .orderBy("mydevicetime", Query.Direction.DESCENDING)
+                                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                                for (DocumentChange ds : queryDocumentSnapshots.getDocumentChanges()) {
+                                                    if (ds.getType() == DocumentChange.Type.ADDED) {
+                                                        DeviceModel get = ds.getDocument().toObject(DeviceModel.class);
+                                                        getList.add(get);
+                                                        getDataAdapter1.notifyDataSetChanged();
+                                                    }
+
+                                                }
+                                            }
+                                        });
+                                ////data refreshing
+                                Handler handler1=new Handler();
+                                handler1.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tv_no_cards.setVisibility(View.GONE);
+                                        recyclerbooth.setVisibility(View.VISIBLE);
+                                        tv_no_cards_empty.setVisibility(View.GONE);
+                                        btn_id.revertAnimation();
+                                        btn_id.setText("Refresh");
+                                        Toasty.info(getApplicationContext(),"Refreshing Done",Toasty.LENGTH_SHORT,true).show();
+                                        return;
+                                    }
+                                },3000);
+
+
+                            }
+                        }
+                    });
+
+
         }
     });
     ImageView bluethooth=(ImageView)bottomSheetDialog11.findViewById(R.id.bluethooth);
@@ -497,6 +780,79 @@ else if(id==R.id.wishlist) {
 
         }
     });
+    LottieAnimationView tv_no_cards=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards);
+    RecyclerView recyclerbooth=(RecyclerView)bottomSheetDialog11.findViewById(R.id.recyclerbooth);
+    LottieAnimationView tv_no_cards_empty=(LottieAnimationView)bottomSheetDialog11.findViewById(R.id.tv_no_cards_empty);
+
+    ////devices are setup from database
+
+    firebaseFirestore=FirebaseFirestore.getInstance();
+    ///getting data counter
+    firebaseFirestore.collection("My_Devices")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    int count = 0;
+                    for (DocumentSnapshot document : task.getResult()) {
+                        count++;
+                    }
+                    if (count==0) {
+                        tv_no_cards.setVisibility(View.VISIBLE);
+                        recyclerbooth.setVisibility(View.GONE);
+                        Handler handler=new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv_no_cards.setVisibility(View.GONE);
+                                recyclerbooth.setVisibility(View.GONE);
+                                tv_no_cards_empty.setVisibility(View.VISIBLE);
+                            }
+                        },2000);
+                    }
+                    else {
+                        tv_no_cards.setVisibility(View.GONE);
+                        recyclerbooth.setVisibility(View.VISIBLE);
+                        DocumentReference documentReference;
+                        RecyclerView recyclerView;
+                        DevicAdapter getDataAdapter1;
+                        List<DeviceModel> getList;
+
+
+
+                        getList = new ArrayList<>();
+                        getDataAdapter1 = new DevicAdapter(getList);
+                        firebaseFirestore = FirebaseFirestore.getInstance();
+                        documentReference = firebaseFirestore.collection("My_Devices")
+                                .document();
+
+                        recyclerbooth.setHasFixedSize(true);
+                        recyclerbooth.setLayoutManager(new LinearLayoutManager(JoinActivity.this));
+                        recyclerbooth.setAdapter(getDataAdapter1);
+
+
+                        firebaseFirestore.collection("My_Devices")
+                                .orderBy("mydevicetime", Query.Direction.DESCENDING)
+                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                        for (DocumentChange ds : queryDocumentSnapshots.getDocumentChanges()) {
+                                            if (ds.getType() == DocumentChange.Type.ADDED) {
+                                                DeviceModel get = ds.getDocument().toObject(DeviceModel.class);
+                                                getList.add(get);
+                                                getDataAdapter1.notifyDataSetChanged();
+                                            }
+
+                                        }
+                                    }
+                                });
+
+
+                    }
+                }
+            });
+
+    //////
 
 
 
@@ -506,6 +862,7 @@ else if(id==R.id.wishlist) {
 
 }
 else if(id==R.id.setings) {
+    mainDrawer.closeDrawer(Gravity.START,false);
     final BottomSheetDialog bottomSheetDialog11 = new BottomSheetDialog(JoinActivity.this);
     bottomSheetDialog11.setContentView(R.layout.settings);
     TypeWriterView app_slogan=(TypeWriterView)bottomSheetDialog11.findViewById(R.id.app_slogan);

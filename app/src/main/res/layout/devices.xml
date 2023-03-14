@@ -39,6 +39,36 @@
         android:orientation="vertical"
         android:id="@+id/download"
         >
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/tv_no_cards"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="250dp"
+
+            app:lottie_fileName="loadinganim.json"
+            app:lottie_loop="true"
+
+            android:layout_below="@id/toolbarwrap"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            app:lottie_autoPlay="true"
+            />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/tv_no_cards_empty"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="250dp"
+
+            app:lottie_fileName="empty_list.json"
+            app:lottie_loop="true"
+
+            android:layout_below="@id/toolbarwrap"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            app:lottie_autoPlay="true"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="250dp"

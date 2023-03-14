@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\aripu\\AndroidStudioProjects\\MyAllTesting\\user.jks')
+            storePassword '123456'
+            keyAlias 'key0'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion 32
     buildToolsVersion "33.0.2"
     lintOptions {
@@ -21,6 +29,7 @@ android {
             minifyEnabled false
             multiDexEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -30,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.DantSu:ESCPOS-ThermalPrinter-Android:3.2.0'
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
     implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
     implementation 'com.github.NitishGadangi:TypeWriter-TextView:v1.3'

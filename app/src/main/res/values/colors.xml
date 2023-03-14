@@ -10,7 +10,6 @@
     <color name="colorPrimary">#039BE6</color>
     <color name="colorPrimaryDark">#039BE6</color>
     <color name="colorAccent">#039BE6</color>
-    <color name="toolbar">#244E4A</color>
 
     <color name="colorBackground">@android:color/white</color>
 
