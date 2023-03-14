@@ -31,7 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FreshCPClActivity" />
+        <activity android:name=".FreshCPClActivity" >
+
+        </activity>
         <activity android:name=".AssenTaskDounwActivity" />
         <activity android:name=".CPClActivity" />
         <activity
