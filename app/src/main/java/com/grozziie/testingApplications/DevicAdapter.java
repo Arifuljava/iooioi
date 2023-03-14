@@ -9,8 +9,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,28 +36,25 @@ public class DevicAdapter  extends RecyclerView.Adapter<DevicAdapter.myview> {
 
     @Override
     public void onBindViewHolder(@NonNull DevicAdapter.myview holder, final int position) {
+
+        topAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_top_animation);
+        bottomAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_bottom_animation);
+        startAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_start_animation);
+        endAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_end_animation);
        try {
-           int myposition=Integer.parseInt(data.get(position).toString());
-           topAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_top_animation);
-           bottomAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_bottom_animation);
-           startAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_start_animation);
-           endAnimation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.splash_end_animation);
-           if (myposition%4==0)
-           {
+          /// int myposition=Integer.parseInt(data.get(position).toString());
+           if (position%2==0) {
+               holder.dailyCheckCard.setAnimation(startAnimation);
                holder.container.setAnimation(startAnimation);
            }
-           else if (myposition%4==1)
-           {
+           else {
+               holder.dailyCheckCard.setAnimation(endAnimation);
                holder.container.setAnimation(endAnimation);
            }
-           else if (myposition%4==2)
-           {
-               holder.container.setAnimation(topAnimation);
-           }
-           else if (myposition%4==3)
-           {
-               holder.container.setAnimation(bottomAnimation);
-           }
+
+
+
+
            holder.tvDeviceAddress.setText(data.get(position).getDeviceaddress());
            holder.tvDeviceName.setText(data.get(position).getDevicename());
            holder.textView.setText(data.get(position).getConnectddate());
@@ -64,7 +63,8 @@ public class DevicAdapter  extends RecyclerView.Adapter<DevicAdapter.myview> {
                public void onClick(View v) {
                    String message="Device Name : "+data.get(position).getDevicename()+"" +
                            "\nMAC Address : "+data.get(position).getDeviceaddress().toUpperCase().toString()+"\n" +
-                           "Connected Date : "+data.get(position).getConnectddate();
+                           "Connected Date : "+data.get(position).getConnectddate()+"" +
+                           ""+position;
                    AlertDialog.Builder builder=new AlertDialog.Builder(v.getContext());
                    builder.setTitle("Device Details")
                            .setMessage(message)
@@ -77,9 +77,30 @@ public class DevicAdapter  extends RecyclerView.Adapter<DevicAdapter.myview> {
 
                }
            });
+           ////////
+           holder.dailyCheckCard.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   String message="Device Name : "+data.get(position).getDevicename()+"" +
+                           "\nMAC Address : "+data.get(position).getDeviceaddress().toUpperCase().toString()+"\n" +
+                           "Connected Date : "+data.get(position).getConnectddate()+"" +
+                           "\nThank You";
+                   AlertDialog.Builder builder=new AlertDialog.Builder(v.getContext());
+                   builder.setTitle("Device Details")
+                           .setMessage(message)
+                           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialog, int which) {
+                                   dialog.dismiss();
+                               }
+                           }).create().show();
+               }
+           });
        }catch (Exception e) {
            e.printStackTrace();
        }
+       ////cardview
+
 
     }
 
@@ -91,6 +112,7 @@ public class DevicAdapter  extends RecyclerView.Adapter<DevicAdapter.myview> {
     class myview extends RecyclerView.ViewHolder {
         TextView tvDeviceName,tvDeviceAddress,textView;
         RelativeLayout container;
+        CardView dailyCheckCard;
 
         public myview(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +120,7 @@ public class DevicAdapter  extends RecyclerView.Adapter<DevicAdapter.myview> {
             tvDeviceAddress=itemView.findViewById(R.id.tvDeviceAddress);
             textView=itemView.findViewById(R.id.textView);
             container=itemView.findViewById(R.id.container);
+            dailyCheckCard=itemView.findViewById(R.id.dailyCheckCard);
 
 
         }

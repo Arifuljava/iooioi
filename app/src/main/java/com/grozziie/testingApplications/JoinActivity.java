@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -111,6 +113,9 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
     //Other Variables
     private Animation topAnimation, bottomAnimation, startAnimation, endAnimation;
     private SharedPreferences onBoardingPreference;
+    BluetoothAdapter bluetoothAdapter;
+    BluetoothDevice bluetoothDevice;
+    BluetoothSocket bluetoothSocket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +128,41 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setElevation(10.0f);
         getSupportActionBar().setElevation(10.0f);
+        //////////////bluetooth checking
+       try {
+           bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+           Toast.makeText(this, ""+bluetoothAdapter.isEnabled(), Toast.LENGTH_SHORT).show();
+           if (!bluetoothAdapter.isEnabled()) {
+               AlertDialog.Builder builder=new AlertDialog.Builder(JoinActivity.this);
+               builder.setTitle("Bluetooth")
+                       .setMessage("Your bluetooth is disable now.\nDo you want to enable it?")
+                       .setPositiveButton("NOT NOW", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               dialog.dismiss();
+
+
+                           }
+                       }).setNegativeButton("ENABLE NOW", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int which) {
+                       dialog.dismiss();
+                       bluetoothAdapter.enable();
+                       bluetoothAdapter.startDiscovery();
+                       
+
+
+                   }
+               }).create();
+               builder.show();
+           }
+           else {
+
+
+           }
+       }catch (Exception e) {
+       }
+
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
 
@@ -512,19 +552,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
             public void onClick(View v) {
                 final BottomSheetDialog bottomSheetDialog11 = new BottomSheetDialog(JoinActivity.this);
                 bottomSheetDialog11.setContentView(R.layout.settings);
-                TypeWriterView app_slogan=(TypeWriterView)bottomSheetDialog11.findViewById(R.id.app_slogan);
-                //app_slogan.setText("Please select a paired device for your primary connected printer.Here is some printer list that you are connected previously.");
-                app_slogan.animateText("Please select a paired device for your primary connected printer.Here is some printer list that you are connected previously.");
-                app_slogan.setCharacterDelay(100);
-                app_slogan.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
-                    @Override
-                    public void onAnimationEnd() {
-                        //Do something
-                        app_slogan.isAnimationRunning(); //returns true if animation is still running
-                        app_slogan.stopAnimation(); //Stop the ongoing animation
-                        app_slogan.isTextInitialised(); //returns false if animation is not started
-                    }
-                });
+
                 CircularProgressButton btn_id=(CircularProgressButton)bottomSheetDialog11.findViewById(R.id.btn_id);
                 btn_id.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -539,6 +567,8 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                         },3000);
                     }
                 });
+                //////setup spinner
+
 
 
 

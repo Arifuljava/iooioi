@@ -3,11 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_marginBottom="150dp"
 
     android:layout_height="wrap_content">
 
     <LinearLayout
-
+        android:layout_marginBottom="150dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -22,14 +23,20 @@
         android:orientation="vertical"
         android:layout_marginTop="10dp"
         >
-        <com.nitish.typewriterview.TypeWriterView
+        <com.codesgood.views.JustifiedTextView
             android:id="@+id/app_slogan"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_gravity="center_vertical|end"
+            android:gravity="center_vertical|end"
             android:fontFamily="@font/montserrat"
             android:includeFontPadding="false"
+            android:justificationMode="inter_word"
+
+
             android:text="Please select a paired device for your primary connected printer.Here is some printer list that you are connected previously."
             android:textAlignment="viewStart"
             android:textAllCaps="false"
@@ -39,17 +46,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_logo" />
-        <Spinner
+        <Button
+            android:text="Default printer"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:background="@drawable/gradi"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"
 
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            ></Spinner>
+            ></Button>
         <RelativeLayout
             android:layout_marginBottom="50dp"
-            android:layout_margin="10dp"
+           android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
