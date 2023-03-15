@@ -23,33 +23,25 @@
         android:layout_toRightOf="@id/show_message_1_replay"
         />
 
-   <androidx.core.widget.NestedScrollView
-       android:layout_width="match_parent"
-       android:layout_marginLeft="40dp"
-       android:layout_marginTop="4dp"
-       android:layout_height="wrap_content"
-
-       >
-       <com.nitish.typewriterview.TypeWriterView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_toRightOf="@id/profile_image"
-           android:id="@+id/show_message_1_replay"
-           android:layout_centerVertical="true"
-           android:lineSpacingExtra="2dp"
-           android:paddingLeft="20dp"
-           android:paddingTop="4dp"
-           android:paddingRight="30dp"
-           android:gravity="center_vertical|start"
-           android:fontFamily="@font/montserrat"
-           android:includeFontPadding="false"
-           android:justificationMode="inter_word"
-           android:paddingBottom="10dp"
-           android:text="Hi, How are you?"
-           android:textColor="@color/black"
-           android:textSize="12dp"
-           android:background="@drawable/background_left"/>
-   </androidx.core.widget.NestedScrollView>
+    <com.nitish.typewriterview.TypeWriterView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/profile_image"
+        android:id="@+id/show_message_1_replay"
+        android:layout_centerVertical="true"
+        android:lineSpacingExtra="2dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="4dp"
+        android:paddingRight="30dp"
+        android:gravity="center_vertical|start"
+        android:fontFamily="@font/montserrat"
+        android:includeFontPadding="false"
+        android:justificationMode="inter_word"
+        android:paddingBottom="10dp"
+        android:text="Hi, How are you?"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        android:background="@drawable/background_left"/>
 
     <TextView
         android:layout_width="wrap_content"

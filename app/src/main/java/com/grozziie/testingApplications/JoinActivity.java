@@ -44,6 +44,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.codesgood.views.JustifiedTextView;
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection;
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections;
 import com.geniusforapp.fancydialog.FancyAlertDialog;
@@ -151,6 +152,10 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setElevation(10.0f);
         getSupportActionBar().setElevation(10.0f);
+        ///phone's default language getings
+        String  defaultlanguage=Locale.getDefault().getDisplayLanguage();
+        ///Toast.makeText(this, ""+defaultlanguage, Toast.LENGTH_SHORT).show();
+
 
        /// Toast.makeText(this, ""+deviceName, Toast.LENGTH_SHORT).show();
         //////////////bluetooth checking
@@ -1031,19 +1036,9 @@ else if(id==R.id.setings) {
     mainDrawer.closeDrawer(Gravity.START,false);
     final BottomSheetDialog bottomSheetDialog11 = new BottomSheetDialog(JoinActivity.this);
     bottomSheetDialog11.setContentView(R.layout.settings);
-    TypeWriterView app_slogan=(TypeWriterView)bottomSheetDialog11.findViewById(R.id.app_slogan);
+    JustifiedTextView app_slogan=(JustifiedTextView)bottomSheetDialog11.findViewById(R.id.app_slogan);
     //app_slogan.setText("Please select a paired device for your primary connected printer.Here is some printer list that you are connected previously.");
-    app_slogan.animateText("Please select a paired device for your primary connected printer.Here is some printer list that you are connected previously.");
-    app_slogan.setCharacterDelay(100);
-    app_slogan.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
-        @Override
-        public void onAnimationEnd() {
-            //Do something
-            app_slogan.isAnimationRunning(); //returns true if animation is still running
-            app_slogan.stopAnimation(); //Stop the ongoing animation
-            app_slogan.isTextInitialised(); //returns false if animation is not started
-        }
-    });
+
     CircularProgressButton btn_id=(CircularProgressButton)bottomSheetDialog11.findViewById(R.id.btn_id);
     btn_id.setOnClickListener(new View.OnClickListener() {
         @Override

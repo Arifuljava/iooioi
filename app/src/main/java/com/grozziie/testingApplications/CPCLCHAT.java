@@ -51,14 +51,14 @@ public class CPCLCHAT extends AppCompatActivity {
                     Toast.makeText(CPCLCHAT.this, "Enter message", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    if (editTextEmail.getText().toString().toLowerCase().contains("is esc printer is good")) {
+                    if (editTextEmail.getText().toString().toLowerCase().contains("is cpcl printer is good")) {
                         show_message.setText(editTextEmail.getText().toString());
                         show_message_1_replay.animateText("Thinking");
                         Handler handler=new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("Yes\nTHT Space electronical company created ESC based printer");
+                                show_message_1_replay.animateText("Yes\nTHT Space electronical company created CPCL based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
                                     @Override
@@ -73,7 +73,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         },3000);
 
                     }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("esc is good")) {
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("cpcl is good")) {
 
                         //Toast.makeText(CSECHAT.this, "ggg", Toast.LENGTH_SHORT).show();
                         ///
@@ -83,7 +83,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("Yes\nTHT Space electronical company created ESC based printer");
+                                show_message_1_replay.animateText("Yes\nTHT Space electronical company created CPCL based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
                                     @Override
@@ -98,7 +98,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         },3000);
 
                     }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("esc is not good")) {
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("cpcl is not good")) {
 
 
                         show_message.setText(editTextEmail.getText().toString());
@@ -107,7 +107,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("No\nTHT Space electronical company created ESC based printer");
+                                show_message_1_replay.animateText("No\nTHT Space electronical company created CPCL based printer");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -123,7 +123,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         },3000);
 
                     }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("esc better than zpl")) {
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("cpcl better than zpl")) {
 
 
                         show_message.setText(editTextEmail.getText().toString());
@@ -132,7 +132,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("YES\nTHT Space electronical company not created ZPL based printer");
+                                show_message_1_replay.animateText("YES\nTHT Space electronical company  created CPCL based printer");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -147,7 +147,7 @@ public class CPCLCHAT extends AppCompatActivity {
                             }
                         },3000);
                     }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("zpl vs esc")) {
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("zpl vs cpcl")) {
 
 
                         show_message.setText(editTextEmail.getText().toString());
@@ -156,38 +156,13 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("Though Zebra printers are typically used to print black and white labels, they can also print color labels.\n" +
-                                        " Using the colors in your brand will help to identify products quickly \n" +
-                                        "and easily, which is helpful for customers who need fast identification \n" +
-                                        "of inventory items at a glance.");
-                                //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
-                                show_message_1_replay.setCharacterDelay(70);
-                                show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
-                                    @Override
-                                    public void onAnimationEnd() {
-                                        //Do something
-                                        show_message_1_replay.isAnimationRunning(); //returns true if animation is still running
-                                        show_message_1_replay.stopAnimation(); //Stop the ongoing animation
-                                        show_message_1_replay.isTextInitialised(); //returns false if animation is not started
-                                    }
-                                });
-                            }
-                        },3000);
-
-                    }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("esc vs zpl")) {
-
-
-                        show_message.setText(editTextEmail.getText().toString());
-                        show_message_1_replay.setText("Thinking");
-                        Handler handler=new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                show_message_1_replay.animateText("Though Zebra printers are typically used to print black and white labels, they can also print color labels.\n" +
-                                        " Using the colors in your brand will help to identify products quickly \n" +
-                                        "and easily, which is helpful for customers who need fast identification \n" +
-                                        "of inventory items at a glance.");
+                                show_message_1_replay.animateText("ZPL (Zebra Programming Language) and CPCL (Comprehensive Printer Command Language) are two different programming languages used for printing labels and receipts on Zebra printers.\n" +
+                                        "\n" +
+                                        "ZPL is a printer language developed by Zebra Technologies that is used for designing and printing labels for a wide range of applications, including shipping, inventory management, and asset tracking. It is a high-level language that supports a wide range of commands, such as text and barcode printing, graphics, and formatting.\n" +
+                                        "\n" +
+                                        "CPCL, on the other hand, is a command language developed by Zebra Technologies specifically for mobile printers. It is a low-level language that is used to send commands directly to the printer, such as specifying the font size and position of text, and printing barcodes and images. It is more limited than ZPL in terms of its capabilities, but it is easier to learn and use.\n" +
+                                        "\n" +
+                                        "In summary, ZPL is a more powerful and flexible language that is suitable for a wide range of label printing applications, while CPCL is a simpler language that is more suited to mobile printing and applications with less complex printing requirements.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -203,7 +178,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         },3000);
 
                     }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("esc vs zpl?")) {
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("cpcl vs zpl")) {
 
 
                         show_message.setText(editTextEmail.getText().toString());
@@ -212,10 +187,13 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("Though Zebra printers are typically used to print black and white labels, they can also print color labels.\n" +
-                                        " Using the colors in your brand will help to identify products quickly \n" +
-                                        "and easily, which is helpful for customers who need fast identification \n" +
-                                        "of inventory items at a glance.");
+                                show_message_1_replay.animateText("ZPL (Zebra Programming Language) and CPCL (Comprehensive Printer Command Language) are two different programming languages used for printing labels and receipts on Zebra printers.\n" +
+                                        "\n" +
+                                        "ZPL is a printer language developed by Zebra Technologies that is used for designing and printing labels for a wide range of applications, including shipping, inventory management, and asset tracking. It is a high-level language that supports a wide range of commands, such as text and barcode printing, graphics, and formatting.\n" +
+                                        "\n" +
+                                        "CPCL, on the other hand, is a command language developed by Zebra Technologies specifically for mobile printers. It is a low-level language that is used to send commands directly to the printer, such as specifying the font size and position of text, and printing barcodes and images. It is more limited than ZPL in terms of its capabilities, but it is easier to learn and use.\n" +
+                                        "\n" +
+                                        "In summary, ZPL is a more powerful and flexible language that is suitable for a wide range of label printing applications, while CPCL is a simpler language that is more suited to mobile printing and applications with less complex printing requirements.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -231,7 +209,7 @@ public class CPCLCHAT extends AppCompatActivity {
                         },3000);
 
                     }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("zpl vs esc?")) {
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("cpcl vs zpl?")) {
 
 
                         show_message.setText(editTextEmail.getText().toString());
@@ -240,10 +218,44 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("Though Zebra printers are typically used to print black and white labels, they can also print color labels.\n" +
-                                        " Using the colors in your brand will help to identify products quickly \n" +
-                                        "and easily, which is helpful for customers who need fast identification \n" +
-                                        "of inventory items at a glance.");
+                                show_message_1_replay.animateText("ZPL (Zebra Programming Language) and CPCL (Comprehensive Printer Command Language) are two different programming languages used for printing labels and receipts on Zebra printers.\n" +
+                                        "\n" +
+                                        "ZPL is a printer language developed by Zebra Technologies that is used for designing and printing labels for a wide range of applications, including shipping, inventory management, and asset tracking. It is a high-level language that supports a wide range of commands, such as text and barcode printing, graphics, and formatting.\n" +
+                                        "\n" +
+                                        "CPCL, on the other hand, is a command language developed by Zebra Technologies specifically for mobile printers. It is a low-level language that is used to send commands directly to the printer, such as specifying the font size and position of text, and printing barcodes and images. It is more limited than ZPL in terms of its capabilities, but it is easier to learn and use.\n" +
+                                        "\n" +
+                                        "In summary, ZPL is a more powerful and flexible language that is suitable for a wide range of label printing applications, while CPCL is a simpler language that is more suited to mobile printing and applications with less complex printing requirements.");
+                                //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
+                                show_message_1_replay.setCharacterDelay(70);
+                                show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
+                                    @Override
+                                    public void onAnimationEnd() {
+                                        //Do something
+                                        show_message_1_replay.isAnimationRunning(); //returns true if animation is still running
+                                        show_message_1_replay.stopAnimation(); //Stop the ongoing animation
+                                        show_message_1_replay.isTextInitialised(); //returns false if animation is not started
+                                    }
+                                });
+                            }
+                        },3000);
+
+                    }
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("zpl vs cpcl?")) {
+
+
+                        show_message.setText(editTextEmail.getText().toString());
+                        show_message_1_replay.setText("Thinking");
+                        Handler handler=new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                show_message_1_replay.animateText("ZPL (Zebra Programming Language) and CPCL (Comprehensive Printer Command Language) are two different programming languages used for printing labels and receipts on Zebra printers.\n" +
+                                        "\n" +
+                                        "ZPL is a printer language developed by Zebra Technologies that is used for designing and printing labels for a wide range of applications, including shipping, inventory management, and asset tracking. It is a high-level language that supports a wide range of commands, such as text and barcode printing, graphics, and formatting.\n" +
+                                        "\n" +
+                                        "CPCL, on the other hand, is a command language developed by Zebra Technologies specifically for mobile printers. It is a low-level language that is used to send commands directly to the printer, such as specifying the font size and position of text, and printing barcodes and images. It is more limited than ZPL in terms of its capabilities, but it is easier to learn and use.\n" +
+                                        "\n" +
+                                        "In summary, ZPL is a more powerful and flexible language that is suitable for a wide range of label printing applications, while CPCL is a simpler language that is more suited to mobile printing and applications with less complex printing requirements.");
                                 //  show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -258,7 +270,7 @@ public class CPCLCHAT extends AppCompatActivity {
                             }
                         },3000);
                     }
-                    else if (editTextEmail.getText().toString().toLowerCase().contains("what is esc printer?")) {
+                    else if (editTextEmail.getText().toString().toLowerCase().contains("what is cpcl printer?")) {
 
 
                         show_message.setText(editTextEmail.getText().toString());
@@ -267,10 +279,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero" +
+                                        " Printer Command Language (CPCL) to utilize the built in text, graphics," +
+                                        " bar code printing, and communication " +
+                                        "capabilities of Zebra printers. To configure the CPCL settings: Select CPCL " +
+                                        "from the options on the left.");
                                 // show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -294,10 +307,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero\" +\n" +
+                                        "                                        \" Printer Command Language (CPCL) to utilize the built in text, graphics,\" +\n" +
+                                        "                                        \" bar code printing, and communication \" +\n" +
+                                        "                                        \"capabilities of Zebra printers. To configure the CPCL settings: Select CPCL \" +\n" +
+                                        "                                        \"from the options on the left.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -321,10 +335,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero\" +\n" +
+                                        "                                        \" Printer Command Language (CPCL) to utilize the built in text, graphics,\" +\n" +
+                                        "                                        \" bar code printing, and communication \" +\n" +
+                                        "                                        \"capabilities of Zebra printers. To configure the CPCL settings: Select CPCL \" +\n" +
+                                        "                                        \"from the options on the left.");
                                 //  show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -348,10 +363,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero\" +\n" +
+                                        "                                        \" Printer Command Language (CPCL) to utilize the built in text, graphics,\" +\n" +
+                                        "                                        \" bar code printing, and communication \" +\n" +
+                                        "                                        \"capabilities of Zebra printers. To configure the CPCL settings: Select CPCL \" +\n" +
+                                        "                                        \"from the options on the left.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -375,10 +391,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero" +
+                                        " Printer Command Language (CPCL) to utilize the built in text, graphics," +
+                                                " bar code printing, and communication " +
+                                                "capabilities of Zebra printers. To configure the CPCL settings: Select CPCL " +
+                                                "from the options on the left.");
                                 // show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -401,10 +418,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero\" +\n" +
+                                        "                                        \" Printer Command Language (CPCL) to utilize the built in text, graphics,\" +\n" +
+                                        "                                        \" bar code printing, and communication \" +\n" +
+                                        "                                        \"capabilities of Zebra printers. To configure the CPCL settings: Select CPCL \" +\n" +
+                                        "                                        \"from the options on the left.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -428,10 +446,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero\" +\n" +
+                                        "                                        \" Printer Command Language (CPCL) to utilize the built in text, graphics,\" +\n" +
+                                        "                                        \" bar code printing, and communication \" +\n" +
+                                        "                                        \"capabilities of Zebra printers. To configure the CPCL settings: Select CPCL \" +\n" +
+                                        "                                        \"from the options on the left.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -455,10 +474,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero\" +\n" +
+                                        "                                        \" Printer Command Language (CPCL) to utilize the built in text, graphics,\" +\n" +
+                                        "                                        \" bar code printing, and communication \" +\n" +
+                                        "                                        \"capabilities of Zebra printers. To configure the CPCL settings: Select CPCL \" +\n" +
+                                        "                                        \"from the options on the left.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -482,10 +502,11 @@ public class CPCLCHAT extends AppCompatActivity {
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                show_message_1_replay.animateText("ESC/P-R is a common language for selected Epson printers " +
-                                        "that supports every media type, paper size and associated printing mode " +
-                                        "available on those printers. It is suited especially for consumer electronics devices " +
-                                        "and embedded equipments.");
+                                show_message_1_replay.animateText("CPCL profile provides various commands in Camero\" +\n" +
+                                        "                                        \" Printer Command Language (CPCL) to utilize the built in text, graphics,\" +\n" +
+                                        "                                        \" bar code printing, and communication \" +\n" +
+                                        "                                        \"capabilities of Zebra printers. To configure the CPCL settings: Select CPCL \" +\n" +
+                                        "                                        \"from the options on the left.");
                                 //show_message_1_replay.setText("Yes\nTHT Space electronical company created ESC based printer");
                                 show_message_1_replay.setCharacterDelay(70);
                                 show_message_1_replay.setOnAnimationChangeListener(new TypeWriterView.OnAnimationChangeListener() {
@@ -500,7 +521,7 @@ public class CPCLCHAT extends AppCompatActivity {
                             }
                         },3000);
                     }
-                    Toast.makeText(CSECHAT.this, "Message Send"+editTextEmail.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CPCLCHAT.this, "Message Send"+editTextEmail.getText(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

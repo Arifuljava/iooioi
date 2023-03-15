@@ -14,6 +14,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.apps.cloudprint.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,8 +26,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CSEPrinterActivity"
-            android:parentActivityName=".JoinActivity"></activity>
+        <activity android:name=".WebpagePrinting"></activity>
+        <activity android:name=".ChatGptActivityy" />
+        <activity
+            android:name=".CSEPrinterActivity"
+            android:parentActivityName=".JoinActivity" />
         <activity android:name=".CSECHAT" />
         <activity android:name=".CPCLCHAT" />
         <activity android:name=".JoinActivity" />
@@ -35,7 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FreshCPClActivity"></activity>
+        <activity android:name=".FreshCPClActivity" />
         <activity android:name=".AssenTaskDounwActivity" />
         <activity android:name=".CPClActivity" />
         <activity
