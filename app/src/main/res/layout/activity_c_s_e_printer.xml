@@ -49,6 +49,7 @@
 
                           ////first design
                           <LinearLayout
+                              android:id="@+id/firstdesign"
                               app:layout_constraintEnd_toEndOf="parent"
                               app:layout_constraintStart_toStartOf="parent"
                               app:layout_constraintTop_toTopOf="parent"
@@ -286,7 +287,7 @@
                                       android:layout_marginEnd="16dp"
                                       android:enabled="false"
                                       android:visibility="visible"
-                                      android:hint=" Printer  MAC Address"
+                                      android:hint=" Printer   Name"
                                       android:textColorHint="@color/colorAccent"
                                       android:theme="@style/TextInputLayoutAppearance"
                                       app:boxCornerRadiusBottomEnd="28dp"
@@ -330,13 +331,28 @@
                                           android:textStyle="normal" />
 
                                   </com.google.android.material.textfield.TextInputLayout>
+                                  <Button
+                                      android:text="Select Printer"
+                                      android:textAllCaps="false"
+                                      android:textColor="@color/white"
+                                      android:textSize="15dp"
+                                      android:enabled="true"
+                                      android:id="@+id/selectprinter"
+                                      android:background="@drawable/button"
+                                      android:layout_marginStart="16dp"
+                                      android:layout_marginEnd="16dp"
+                                      android:layout_marginTop="10dp"
+
+                                      android:layout_width="match_parent"
+                                      android:layout_height="50dp"
+                                      ></Button>
 
                                   <Button
                                       android:text="Print Now"
                                       android:textAllCaps="false"
                                       android:textColor="@color/white"
                                       android:textSize="15dp"
-                                      android:enabled="false"
+                                      android:enabled="true"
                                       android:id="@+id/button_bluetooth_browse"
                                       android:background="@drawable/button"
                                       android:layout_marginStart="16dp"

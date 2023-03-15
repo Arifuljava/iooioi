@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation 'org.tensorflow:tensorflow-android:1.2.0'
     implementation 'com.github.DantSu:ESCPOS-ThermalPrinter-Android:3.2.0'
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
     implementation 'com.github.jgabrielfreitas:BlurImageView:1.0.1'

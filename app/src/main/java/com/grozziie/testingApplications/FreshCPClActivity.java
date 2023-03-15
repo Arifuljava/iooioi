@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
 
 import es.dmoral.toasty.Toasty;
@@ -117,44 +118,12 @@ public class FreshCPClActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(FreshCPClActivity.this);
-        builder.setTitle("Exit")
-                .setMessage("Do you want to want to exit from our apps?")
-                .setPositiveButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-
-                    }
-                }).setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finishAffinity();
-            }
-        }).create();
-        builder.show();
+        startActivity(new Intent(getApplicationContext(),JoinActivity.class));
     }
 
     @Override
     public boolean onNavigateUp() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(FreshCPClActivity.this);
-        builder.setTitle("Exit")
-                .setMessage("Do you want to want to exit from our apps?")
-                .setPositiveButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-
-                    }
-                }).setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finishAffinity();
-            }
-        }).create();
-        builder.show();
+        startActivity(new Intent(getApplicationContext(),JoinActivity.class));
         return true;
     }
     /*========================================================================================================
@@ -188,6 +157,9 @@ public class FreshCPClActivity extends AppCompatActivity {
                     {
                         bitmapHeight=bitmap.getHeight();
                     }
+                    Random random=new Random();
+                    int sendingnumber=random.nextInt(10);
+                    int mimisecond=sendingnumber*1000;
 
 
                     new Handler(Looper.getMainLooper()).post(new Runnable() {

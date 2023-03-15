@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Bundle;
 import android.os.Handler;
@@ -129,6 +131,14 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
     String uuid="00001101-0000-1000-8000-00805F9B34FB";
     ////////Dialouge setup
     Dialog mDialouge;
+    Uri imageuri;
+    int flag = 0;
+    BluetoothSocket m5ocket;
+    BluetoothManager mBluetoothManager;
+    BluetoothAdapter mBluetoothAdapter;
+    BluetoothDevice device;
+    ImageView imageposit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -265,7 +275,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                 dailyCheckCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        startActivity(new Intent(getApplicationContext(),CSECHAT.class));
                     }
                 });
                 ///card 2
@@ -314,7 +324,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                 dailyCheckCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        startActivity(new Intent(getApplicationContext(),CPCLCHAT.class));
                     }
                 });
                 ///card 2
@@ -323,7 +333,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                 luckySpinCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+startActivity(new Intent(getApplicationContext(),FreshCPClActivity.class));
                     }
                 });
 
@@ -671,7 +681,7 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
                                     Button button = (Button) bottomSheetDialog11.findViewById(R.id.button_bluetooth_browse);
                                     button.setText(items[i]);
                                     Map<String, Object> user = new HashMap<>();
-                                    user.put("deviceaddress", ""+items[i]);
+                                    user.put("deviceaddress", ""+button.getText().toString());
                                     firebaseFirestore=FirebaseFirestore.getInstance();
                                     firebaseFirestore.collection("Connected")
                                             .document("abc@gmail.com")

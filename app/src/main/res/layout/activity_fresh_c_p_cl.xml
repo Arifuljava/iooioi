@@ -23,7 +23,7 @@
                 android:orientation="vertical"
                 >
                 <androidx.appcompat.widget.Toolbar
-                    android:background="@drawable/drawablebackground"
+                    android:background="@color/colorAccent"
                     android:id="@+id/profile_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize">
@@ -60,13 +60,13 @@
                     android:textStyle="normal"
                     android:onClick="pickimage"
                     android:textSize="15dp"
-                    android:background="@drawable/drawablebackground"
+                    android:background="@drawable/button"
                     ></Button>
                 <Button
                     android:id="@+id/printimageA"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/drawna2"
+                    android:background="@drawable/button"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
