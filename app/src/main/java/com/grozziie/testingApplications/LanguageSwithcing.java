@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 public class LanguageSwithcing extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Spinner spinnerTextSize, spinnerTextSize1, spinnerTextSize2;
     TextView  textdetect;
@@ -37,6 +39,9 @@ public class LanguageSwithcing extends AppCompatActivity implements AdapterView.
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_myarrow);
         getSupportActionBar().setElevation(10.0f);
         getSupportActionBar().setElevation(10.0f);
+        String  defaultlanguage= Locale.getDefault().getDisplayLanguage();
+        Toast.makeText(this, ""+defaultlanguage, Toast.LENGTH_SHORT).show();
+
 
         textdetect=findViewById(R.id.textdetect);
         spinnerTextSize = findViewById(R.id.spinner);
@@ -47,6 +52,24 @@ public class LanguageSwithcing extends AppCompatActivity implements AdapterView.
                 R.layout.spinner_row, textSizes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTextSize.setAdapter(adapter);
+        if (defaultlanguage.equals("Melayu")) {
+            textdetect.setText("");
+            textdetect.setText(R.string.malay);
+            toolbar.setTitle(R.string.malayu);
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        }
+       else if (defaultlanguage.equals("Hausa")) {
+            textdetect.setText("");
+            textdetect.setText(R.string.hausa);
+            toolbar.setTitle(R.string.hhh);
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        }
+       else if (defaultlanguage.equals("English")) {
+            textdetect.setText("");
+            textdetect.setText(R.string.english);
+            toolbar.setTitle(R.string.englishname);
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        }
     }
     String checking;
 
