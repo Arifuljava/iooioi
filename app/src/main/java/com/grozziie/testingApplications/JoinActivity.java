@@ -89,7 +89,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.Socket;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -1158,5 +1160,34 @@ else if(id==R.id.setings) {
         }
         es.shutdown();
         return value;
+    }
+    public  static String setUpmachinetime() throws Exception {
+      final  String IP_ADDRESS="192.168.0.100";
+       final int PORT_Addres=8500;
+        Socket socket = new Socket(IP_ADDRESS, PORT_Addres);
+        Calendar calendar=Calendar.getInstance();
+        int year=calendar.get(Calendar.YEAR);
+        int month=calendar.get(Calendar.MONTH)+1;
+        int day=calendar.get(Calendar.DAY_OF_WEEK);
+        String date=day+" / "+month+" / "+year;
+        int scond=calendar.get(Calendar.SECOND);
+        int min=calendar.get(Calendar.MINUTE);
+        int hour=calendar.get(Calendar.HOUR);
+        String timecurrently=String.format("%02d:%02d:%02d",hour,min,scond);
+        String finaltimeanddate=timecurrently+" "+date;
+        OutputStream output = socket.getOutputStream();
+        String command = "SET_TIME: "+finaltimeanddate;
+        output.write(command.getBytes());
+        InputStream input = socket.getInputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead = input.read(buffer);
+        String response = new String(buffer, 0, bytesRead);
+        if (response.contains("OK")) {
+            System.out.println("Time set successfully.");
+        } else {
+            System.err.println("Error setting time: " + response);
+        }
+        socket.close();
+    return null;
     }
 }

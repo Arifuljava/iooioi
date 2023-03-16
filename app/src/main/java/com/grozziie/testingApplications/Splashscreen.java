@@ -99,13 +99,13 @@ public class Splashscreen extends AppCompatActivity {
                 editor.putBoolean("firstTime", false);
                 editor.apply();
 
-                Intent intent = new Intent(Splashscreen.this, LanguageSwithcing.class);
+                Intent intent = new Intent(Splashscreen.this, ShoppeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 CustomIntent.customType(Splashscreen.this, "fadein-to-fadeout");
                 finish();
             } else {
-                Intent intent = new Intent(Splashscreen.this, LanguageSwithcing.class);
+                Intent intent = new Intent(Splashscreen.this, ShoppeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 CustomIntent.customType(Splashscreen.this, "fadein-to-fadeout");

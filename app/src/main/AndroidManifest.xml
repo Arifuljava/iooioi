@@ -25,7 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ActivityMine"></activity>
+        <activity android:name=".ShoppeActivity"></activity>
+        <activity android:name=".DragAndDrop" />
+        <activity android:name=".ActivityMine" />
         <activity android:name=".LanguageSwithcing" />
         <activity android:name=".WebpagePrinting" />
         <activity android:name=".ChatGptActivityy" />
