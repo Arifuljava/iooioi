@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LanguageSwithcing">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.Toolbar
+            android:background="@color/colorAccent"
+            android:id="@+id/profile_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+        </androidx.appcompat.widget.Toolbar>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/spinner"
+                        >
+
+                    </Spinner>
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <com.codesgood.views.JustifiedTextView
+                                android:layout_marginRight="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="15dp"
+                                android:textSize="15dp"
+                                android:textStyle="normal"
+                                android:id="@+id/textdetect"
+                                android:fontFamily="@font/montserrat"
+                                android:textColor="@color/black"
+                                android:text="The Bangabandhu Satellite-1 is the first Bangladeshi geostationary communications and broadcasting satellite. It is named after the father of the nation, Bangabandhu Sheikh Mujibur Rahman. It was manufactured by Thales Alenia Space and launched on 12 May 2018."
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                ></com.codesgood.views.JustifiedTextView>
+                        </RelativeLayout>
+                    </androidx.core.widget.NestedScrollView>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
