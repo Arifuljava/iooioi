@@ -13,10 +13,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -78,6 +82,16 @@ import com.thecode.aestheticdialogs.DialogStyle;
 import com.thecode.aestheticdialogs.DialogType;
 import com.thecode.aestheticdialogs.OnDialogClickListener;
 
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -90,10 +104,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
+import retrofit2.http.Url;
+
 public class JoinActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
     private Toolbar mainToolbar;
     private String current_user_id;
@@ -155,6 +175,20 @@ public class JoinActivity extends AppCompatActivity  implements NavigationView.O
         ///phone's default language getings
         String  defaultlanguage=Locale.getDefault().getDisplayLanguage();
         ///Toast.makeText(this, ""+defaultlanguage, Toast.LENGTH_SHORT).show();
+        ///get default internet IP address
+        ConnectivityManager connectivityManager=(ConnectivityManager)getSystemService(JoinActivity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo!=null&&networkInfo.isConnected()) {
+
+            try {
+                Toast.makeText(this, "Connect with this IP : "+getPublicIPAddress(), Toast.LENGTH_SHORT).show();
+            }catch (Exception e) {
+            }
+        }
+        else {
+            Toast.makeText(this, "Not Connect", Toast.LENGTH_SHORT).show();
+        }
 
 
        /// Toast.makeText(this, ""+deviceName, Toast.LENGTH_SHORT).show();
@@ -1064,5 +1098,65 @@ else if(id==R.id.setings) {
 
         return false;
 
+    }
+    public  static  String getDefaultIpAddress() throws IOException {
+        // Create a URL object with the API endpoint
+        String ipAddress;
+       try {
+           URL url = new URL("https://api.ipify.org?format=json");
+
+           // Open a connection to the URL and read the response
+           BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+           StringBuilder response = new StringBuilder();
+           String line;
+           while ((line = reader.readLine()) != null) {
+               response.append(line);
+           }
+           reader.close();
+
+           // Parse the JSON response to get the IP address
+           JSONObject jsonObject = new JSONObject(response.toString());
+            ipAddress = jsonObject.getString("ip");
+
+           return ipAddress;
+       }catch (Exception e) {
+           e.printStackTrace();
+       }
+        return null;
+    }
+    public static String getPublicIPAddress(){
+        String value = null;
+        ExecutorService es = Executors.newSingleThreadExecutor();
+        Future<String> result = es.submit(new Callable<String>() {
+            public String call() throws Exception {
+                try {
+                    URL url = new URL("http://whatismyip.akamai.com/");
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    try {
+                        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                        BufferedReader r = new BufferedReader(new InputStreamReader(in));
+                        StringBuilder total = new StringBuilder();
+                        String line;
+                        while ((line = r.readLine()) != null) {
+                            total.append(line).append('\n');
+                        }
+                        urlConnection.disconnect();
+                        return total.toString();
+                    }finally {
+                        urlConnection.disconnect();
+                    }
+                }catch (IOException e){
+                    Log.e("Public IP: ",e.getMessage());
+                }
+                return null;
+            }
+        });
+        try {
+            value = result.get();
+        } catch (Exception e) {
+            // failed
+        }
+        es.shutdown();
+        return value;
     }
 }
