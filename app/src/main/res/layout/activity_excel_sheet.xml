@@ -4,6 +4,129 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#83B3CA"
     tools:context=".ExcelSheetActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:id="@+id/xcelshetttextview"
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:enabled="false"
+
+            android:hint="Excel Sheet Path"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/mymine"
+            ></TextView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="Pick Excel Sheet"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="12dp"
+            android:id="@+id/pickexcel"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/buttondesign"
+            ></Button>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <Button
+                        android:layout_width="0dp"
+                     android:layout_weight="1"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Import Excel (xls,xlsx)"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:textStyle="normal"
+                        android:textSize="12dp"
+                        android:onClick="onClick"
+                        android:id="@+id/import_excel_btn"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:fontFamily="@font/montserrat"
+                        android:background="@drawable/buttondesign"
+                        ></Button>
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Export Excel (xls,xlsx)"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:textStyle="normal"
+                        android:onClick="onClick"
+                        android:textSize="12dp"
+                        android:id="@+id/export_excel_btn"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:fontFamily="@font/montserrat"
+                        android:background="@drawable/buttondesign"
+                        ></Button>
+                </LinearLayout>
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+
+                    >
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/excel_content_rv"
+                        ></androidx.recyclerview.widget.RecyclerView>
+
+                </HorizontalScrollView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

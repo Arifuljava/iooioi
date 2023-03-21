@@ -1,9 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+     android:background="#83B3CA"
     tools:context=".ExcelPrintFinal">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:id="@+id/xcelshetttextview"
+                android:inputType="textMultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:enabled="false"
+                android:text="Spread Sheet Import System"
+
+
+                android:hint="Excel Sheet Path"
+                android:textSize="12dp"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:textAllCaps="false"
+                android:textAlignment="center"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/mymine"
+                ></EditText>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="Excel Sheet Read"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textStyle="normal"
+                android:textSize="12dp"
+                android:id="@+id/pickexcel"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/buttondesign"
+                ></Button>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+                        <Button
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/buttondesign"
+                            android:layout_weight="1"
+                            android:text="Import Excel"
+                            android:onClick="importsection"
+                            android:textColor="@color/white"
+                            android:textStyle="normal"
+                            android:textAllCaps="false"
+                            android:textAlignment="center"
+                            android:textSize="12dp"
+                            android:id="@+id/import_excel_btn"
+
+                            >
+
+                        </Button>
+                        <Button
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/bu"
+                            android:layout_weight="1"
+                            android:text="Export Excel"
+                            android:id="@+id/export_excel_btn"
+                            android:textColor="@color/white"
+                            android:textStyle="normal"
+                            android:textAllCaps="false"
+                            android:textAlignment="center"
+                            android:textSize="12dp"
+
+                            >
+
+                        </Button>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/windows10"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                >
+                                <EditText
+
+                                    android:layout_gravity="center_vertical"
+                                    android:gravity="center_vertical"
+                                    android:id="@+id/resulttext"
+                                    android:inputType="textMultiLine"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="50dp"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:enabled="false"
+
+                                    android:hint="Excel Sheet Path"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/black"
+                                    android:textStyle="normal"
+                                    android:textAllCaps="false"
+                                    android:textAlignment="center"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="@drawable/mymine"
+                                    ></EditText>
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="250dp"
+                                    android:layout_marginHorizontal="10dp"
+                                    android:id="@+id/relay"
+                                    android:layout_marginLeft="20dp"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_marginBottom="50dp"
+                                    android:layout_marginTop="10dp"
+                                    android:padding="10dp"
+                                    android:elevation="10dp"
+
+                                    >
+
+                                </androidx.recyclerview.widget.RecyclerView>
+                            </LinearLayout>
+                        </ScrollView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

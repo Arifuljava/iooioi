@@ -39,6 +39,12 @@ android {
 }
 
 dependencies {
+    //for excel section
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+
+    //implementation 'org.apache.poi:poi:5.2.0'
+   // implementation 'org.apache.poi:poi-ooxml:5.2.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
@@ -453,4 +459,5 @@ dependencies {
     implementation 'com.itextpdf:itextg:5.5.10'
     implementation 'com.github.kerolsafififawzy:Image-To-PdfConverter:1.0.3'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+    compile files('libs/jxl.jar')
 }

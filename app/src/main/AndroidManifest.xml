@@ -25,7 +25,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ForSliderPurpose"></activity>
+        <activity android:name=".ExcelPrintFinal">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".MainActivity2"></activity>
+        <activity android:name=".ExcelSheetActivity">
+
+        </activity>
+        <activity android:name=".ForSliderPurpose" />
         <activity android:name=".ShoppeActivity" />
         <activity android:name=".DragAndDrop" />
         <activity android:name=".ActivityMine" />
@@ -40,13 +52,7 @@
         <activity android:name=".JoinActivity" />
         <activity
             android:name=".Splashscreen"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity android:name=".FreshCPClActivity" />
         <activity android:name=".AssenTaskDounwActivity" />
         <activity android:name=".CPClActivity" />

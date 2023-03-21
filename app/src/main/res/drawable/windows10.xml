@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<shape
+    android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/zxing_viewfinder_mask"
+        >
+    </solid>
+    <corners android:radius="10dp"
+        ></corners>
 
-</selector>
+</shape>
