@@ -76,6 +76,11 @@ public class ExcelPrintFinal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_excel_print_final);
+        ConnectivityPurposeGetIp connectivityPurposeGetIp=new ConnectivityPurposeGetIp(ExcelPrintFinal.this);
+connectivityPurposeGetIp.getip(ExcelPrintFinal.this,"io");
+
+
+
         resulttext = findViewById(R.id.resulttext);
         firebaseFirestore = FirebaseFirestore.getInstance();
         assetManager = getAssets();

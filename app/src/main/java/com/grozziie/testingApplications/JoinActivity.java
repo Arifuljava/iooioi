@@ -1103,6 +1103,7 @@ else if(id==R.id.setings) {
     }
     public  static  String getDefaultIpAddress() throws IOException {
         // Create a URL object with the API endpoint
+
         String ipAddress;
        try {
            URL url = new URL("https://api.ipify.org?format=json");

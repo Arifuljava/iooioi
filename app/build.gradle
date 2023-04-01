@@ -9,6 +9,17 @@ android {
             keyPassword '123456'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
+    }
     compileSdkVersion 32
     buildToolsVersion "33.0.2"
     lintOptions {
@@ -39,6 +50,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.Arifuljava:Printer_setter:v1.0.1'
+    implementation 'com.maxmind.geoip2:geoip2:2.16.0'
+    implementation 'com.github.Ariful0007:Locash26:1.0.0'
     //for excel section
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
@@ -460,4 +474,5 @@ dependencies {
     implementation 'com.github.kerolsafififawzy:Image-To-PdfConverter:1.0.3'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     compile files('libs/jxl.jar')
+  ///  implementation 'com.github.Ariful0007:MyOWnModule:1.0.0'
 }
