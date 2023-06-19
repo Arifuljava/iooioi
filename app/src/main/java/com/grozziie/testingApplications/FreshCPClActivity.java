@@ -80,7 +80,7 @@ public class FreshCPClActivity extends AppCompatActivity {
         printimageA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String BlueMac="7F:B2:62:6A:F3:20";
+                String BlueMac="FB:7F:9B:F2:20:B7";
                 mBluetoothManager= (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
                 mBluetoothAdapter=mBluetoothManager.getAdapter();
                 final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(BlueMac);
@@ -135,7 +135,7 @@ public class FreshCPClActivity extends AppCompatActivity {
     {
         final Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.testing);
         final byte[] bitmapGetByte=BitmapToRGBbyte(bitmap);
-        String BlueMac="62:65:7A:5F:03:26";
+        String BlueMac="FB:7F:9B:F2:20:B7";
         mBluetoothManager= (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter=mBluetoothManager.getAdapter();
         final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(BlueMac);
